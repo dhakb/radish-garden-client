@@ -1,18 +1,23 @@
-import {Route, Routes} from "react-router-dom";
+import {useContext} from "react";
+import {Navigate, Route, Routes} from "react-router-dom";
 
-import Home from "./pages/home/Home.component";
-import Login from "./pages/login/Login.component";
-import Register from "./pages/register/Register.page";
+import {AuthContext} from "./context/auth/Auth.context";
 
-import Profile from "./pages/profile/Profile.component";
+import Home from "./views/home/Home.component";
+import Login from "./views/login/Login.component";
+import Register from "./views/register/Register.page";
+
+import Profile from "./views/profile/Profile.component";
 
 function App() {
+    const {user} = useContext(AuthContext)
+
     return (
         <Routes>
-            <Route path='/login' element={<Login/>}/>
+            <Route path='/' element={user ? <Home/> : <Navigate to="/login"/>}/>
+            <Route path="/login" element={!user ? <Login/> : <Navigate to="/"/>}/>
             <Route path='/signup' element={<Register/>}/>
-            <Route path='/home' element={<Home/>}/>
-            <Route path='/profile' element={<Profile/>}/>
+            <Route path='/profile/:username' element={<Profile/>}/>
         </Routes>
     );
 }
