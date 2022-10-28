@@ -1,23 +1,26 @@
+.unknownContainer {
+    padding: 15px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    margin-right: 10px; 
+}
+
 .rightbar {
     flex: 3.5;
 }
 
 .rightbarWrapper {
-    padding: 20px 20px 0 0;
+    margin-top: 20px;
 }
 
-.birthdayContainer {
-    display: flex;
-    align-items: center;
-}
-
-.birthdayImg {
+.img {
     width: 40px;
     height: 40px;
     margin-right: 10px;
 }
 
-.birthdayText {
+.text {
     font-weight: 300;
     font-size: 15px;
 }
@@ -26,6 +29,16 @@
     width: 100%;
     border-radius: 10px;
     margin: 30px 0;
+}
+
+.profileRightBarContainer {
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-right: 10px;
 }
 
 .rightbarTitle{
@@ -63,9 +76,10 @@
 }
 
 .rightbarFollowings{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 20px;
+    row-gap: 20px;
 }
 
 .rightbarFollowing{
@@ -80,4 +94,23 @@
     height: 100px;
     object-fit: cover;
     border-radius: 5px;
+}
+
+.rigthbarFollowingButton {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border: none;
+    background-color: #1775ee;
+    color: whitesmoke;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.rigthbarFollowingButton:active {
+    background-color: blue;
 }

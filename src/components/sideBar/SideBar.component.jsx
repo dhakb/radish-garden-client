@@ -1,4 +1,6 @@
 import React from 'react';
+import {Users} from "../../DATASET";
+
 import {
     Bookmark,
     Chat,
@@ -12,6 +14,7 @@ import {
 } from "@mui/icons-material";
 
 import "./SideBar.styles.css"
+import CloseFriend from "../closeFriend/CloseFriend.component";
 
 const SideBar = () => {
     return (
@@ -58,60 +61,11 @@ const SideBar = () => {
                 <button className="sidebarButton">show more</button>
                 <hr className="sidebarHr"/>
                 <ul className="sidebarFriendList">
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/1.jpeg" alt="" className="sidebarFriendImg"/>
-                        <spam className="sidebarFriendName">Anyta Lekowski</spam>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/1.jpeg" alt="" className="sidebarFriendImg"/>
-                        <spam className="sidebarFriendName">Anyta Lekowski</spam>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/1.jpeg" alt="" className="sidebarFriendImg"/>
-                        <spam className="sidebarFriendName">Anyta Lekowski</spam>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/1.jpeg" alt="" className="sidebarFriendImg"/>
-                        <spam className="sidebarFriendName">Anyta Lekowski</spam>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/1.jpeg" alt="" className="sidebarFriendImg"/>
-                        <spam className="sidebarFriendName">Anyta Lekowski</spam>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/1.jpeg" alt="" className="sidebarFriendImg"/>
-                        <spam className="sidebarFriendName">Anyta Lekowski</spam>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/1.jpeg" alt="" className="sidebarFriendImg"/>
-                        <spam className="sidebarFriendName">Anyta Lekowski</spam>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/1.jpeg" alt="" className="sidebarFriendImg"/>
-                        <spam className="sidebarFriendName">Anyta Lekowski</spam>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/1.jpeg" alt="" className="sidebarFriendImg"/>
-                        <spam className="sidebarFriendName">Anyta Lekowski</spam>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/1.jpeg" alt="" className="sidebarFriendImg"/>
-                        <spam className="sidebarFriendName">Anyta Lekowski</spam>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/1.jpeg" alt="" className="sidebarFriendImg"/>
-                        <spam className="sidebarFriendName">Anyta Lekowski</spam>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/1.jpeg" alt="" className="sidebarFriendImg"/>
-                        <spam className="sidebarFriendName">Anyta Lekowski</spam>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/1.jpeg" alt="" className="sidebarFriendImg"/>
-                        <spam className="sidebarFriendName">Anyta Lekowski</spam>
-                    </li>
-
-
+                    {
+                        Users.map(user => (
+                            <CloseFriend user={user} key={user.id}/>
+                        ))
+                    }
                 </ul>
             </div>
         </div>
