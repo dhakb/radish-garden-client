@@ -1,5 +1,8 @@
-import React from 'react';
-import {Users} from "../../DATASET";
+import {useContext, useEffect, useState} from 'react';
+import {useNavigate} from "react-router-dom";
+
+import {AuthContext} from "../../context/auth/Auth.context";
+
 
 import {
     Bookmark,
@@ -15,8 +18,32 @@ import {
 
 import "./SideBar.styles.css"
 import CloseFriend from "../closeFriend/CloseFriend.component";
+import axios from "axios";
+
+
+
 
 const SideBar = () => {
+    const {user: currentUser} = useContext(AuthContext)
+    const [followings, setFollowings] = useState([])
+    const navigate = useNavigate()
+
+    useEffect(() => {
+
+        const getFollowings = async () => {
+
+            try {
+                const response = await axios.get(`http://localhost:8080/api/users/${currentUser._id}/followings`)
+                setFollowings(response.data)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
+        getFollowings()
+    }, [currentUser])
+
+
     return (
         <div className="sideBar">
             <div className="sideBarWrapper">
@@ -62,8 +89,8 @@ const SideBar = () => {
                 <hr className="sidebarHr"/>
                 <ul className="sidebarFriendList">
                     {
-                        Users.map(user => (
-                            <CloseFriend user={user} key={user.id}/>
+                        followings.map(following => (
+                            <CloseFriend user={following} key={following._id} navigateToProfile={() => navigate(`/profile/${following.username}`)}/>
                         ))
                     }
                 </ul>

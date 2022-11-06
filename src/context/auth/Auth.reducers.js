@@ -1,4 +1,3 @@
-import axios from "axios";
 import {AUTH_ACTION_TYPES} from "./Auth.actions";
 
 

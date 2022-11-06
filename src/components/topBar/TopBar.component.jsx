@@ -1,5 +1,5 @@
 import {useContext} from 'react';
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from "react-router-dom";
 import {Chat, Notifications, Person, Search} from "@mui/icons-material";
 
 import {AuthContext} from "../../context/auth/Auth.context";
@@ -8,7 +8,14 @@ import "./TopBar.styles.css"
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
 const TopBar = () => {
+    const navigate = useNavigate()
     const {user} = useContext(AuthContext)
+
+    const logoutHandler = () => {
+        localStorage.setItem("user", null)
+        navigate("/")
+        window.location.reload()
+    }
 
     return (
         <div className="topBarContainer">
@@ -34,7 +41,7 @@ const TopBar = () => {
                         <span className="topBarIconBadge">4</span>
                     </div>
                     <div className="topBarIconItem">
-                        <Chat/>
+                        <Chat onClick={() => navigate("/messenger")}/>
                         <span className="topBarIconBadge">4</span>
                     </div>
                     <div className="topBarIconItem">
@@ -42,9 +49,9 @@ const TopBar = () => {
                         <span className="topBarIconBadge">4</span>
                     </div>
                 </div>
-                <Link to={`profile/${user.username}`}>
-                    <img src={`${PF}${user.profilePicture}`} alt="" className="topBarImg"/>
-                </Link>
+                <img src={user?.profilePicture ? `${PF}${user.profilePicture}` : `${PF}avatar.png`} alt=""
+                     className="topBarImg" onClick={() => navigate(`/profile/${user.username}`)}/>
+                <button onClick={logoutHandler}>Log out</button>
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
-import {useEffect, useState, useContext} from "react";
+import {useContext, useEffect, useState} from "react";
+import {useNavigate, redirect} from "react-router-dom";
 import axios from "axios";
-import {Link} from "react-router-dom"
 import {MoreVert} from "@mui/icons-material"
 import {format} from "timeago.js";
 
@@ -11,15 +11,16 @@ import "./Post.styles.css"
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
 const Post = ({...post}) => {
+    const {user} = useContext(AuthContext)
     const [postAuthor, setPostAuthor] = useState({})
     const [likes, setLikes] = useState(post.likes.length)
     const [isLiked, setIsLiked] = useState(false)
-    const {user} = useContext(AuthContext)
+    const navigate = useNavigate()
 
 
     const likeHandler = () => {
         try {
-            const response = axios.put(`http://localhost:8080/api/posts/${post._id}/like`,  {userId: user._id})
+            axios.put(`http://localhost:8080/api/posts/${post._id}/like`, {userId: user._id})
         } catch (err) {
             console.log(err)
         }
@@ -38,6 +39,7 @@ const Post = ({...post}) => {
             const response = await axios.get(`http://localhost:8080/api/users/?userId=${post.userId}`)
             setPostAuthor(response.data)
         }
+
         fetchUser()
 
     }, [post.userId])
@@ -47,20 +49,18 @@ const Post = ({...post}) => {
         <div className="post">
             <div className="postWrapper">
                 <div className="postTop">
-                    <div className="postTopLeft">
-                        <Link to={`profile/${postAuthor.username}`}>
-                            <img
-                                className="postProfileImg"
-                                src={PF + postAuthor.profilePicture}
-                                alt=""
-                            />
-                        </Link>
+                    <div className="postTopLeft" onClick={() => navigate(`profile/${postAuthor.username}`, {replace: true})}>
+                        <img
+                            className="postProfileImg"
+                            src={PF + postAuthor.profilePicture}
+                            alt=""
+                        />
                         <span className="postUsername">
                            {postAuthor.username}
-                     </span>
-                        <span className="postDate">{format(post.createdAt)}</span>
+                        </span>
                     </div>
                     <div className="postTopRight">
+                        <span className="postDate">{format(post.createdAt)}</span>
                         <MoreVert/>
                     </div>
                 </div>
@@ -71,7 +71,6 @@ const Post = ({...post}) => {
                 <div className="postBottom">
                     <div className="postBottomLeft">
                         <img className="likeIcon" src={`${PF}like.png`} alt="" onClick={likeHandler}/>
-                        <img className="likeIcon" src={`${PF}heart.png`} alt=""/>
                         <span className="postLikeCounter">{likes}</span>
                     </div>
                     <div className="postBottomRight">

@@ -14,21 +14,29 @@ const Feed = ({username}) => {
 
     useEffect(() => {
 
-        async function fetchPosts() {
+        const fetchPosts = async () => {
+            try {
+                const response = username
+                    ? await axios.get(`http://localhost:8080/api/posts/profile/${username}`)
+                    : await axios.get(
+                        `http://localhost:8080/api/posts/timeline/${userId}`
+                    );
 
-            const response = username
-                ? await axios.get(`http://localhost:8080/api/posts/profile/${username}`)
-                : await axios.get(
-                    `http://localhost:8080/api/posts/timeline/${userId}`
-                );
-
-            setPosts(response.data);
+                setPosts(response.data);
+            } catch (err) {
+                console.log(err)
+            }
         }
 
         fetchPosts();
     }, [username, userId]);
 
-    console.log(username)
+
+
+    useEffect(() => {
+        setPosts(posts.sort((a, b) => a.createdAt - b.createdAt))
+    }, [])
+
 
     return (
         <div className="feed">

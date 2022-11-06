@@ -1,8 +1,8 @@
 import {useContext, useEffect, useState} from "react";
-import {Link} from "react-router-dom"
 import axios from "axios";
 import Online from "../online/Online.component";
 
+import Following from "../rightBarFollowing/Following.component";
 import {AuthContext} from "../../context/auth/Auth.context";
 
 import "./RightBar.styles.css"
@@ -86,17 +86,11 @@ const RightBar = ({profile}) => {
             </div>
             <h4 className="rightbarTitle">followings</h4>
             <div className="rightbarFollowings">
-                {followings.map(following => (<Link to={`/profile/${following.username}`} key={following._id}
-                                                    style={{textDecoration: "none"}}>
-                    <div className="rightbarFollowing">
-                        <img
-                            src={`${PF}${following.profilePicture}`}
-                            alt=""
-                            className="rightbarFollowingImg"
-                        />
-                        <span className="rightbarFollowingName">{following.username}</span>
-                    </div>
-                </Link>))}
+                {
+                    followings.map(following => (
+                        <Following following={following} key={following._id}/>
+                    ))
+                }
             </div>
         </div>);
     };

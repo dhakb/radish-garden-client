@@ -4,6 +4,10 @@
     margin-bottom: 15px;
 }
 
+.sidebarFriend:hover {
+    cursor: pointer;
+}
+
 .sidebarFriendImg {
     width: 32px;
     height: 32px;
