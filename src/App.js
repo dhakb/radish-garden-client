@@ -8,6 +8,7 @@ import Login from "./views/login/Login.component";
 import Register from "./views/register/Register.page";
 import Profile from "./views/profile/Profile.component";
 import Messenger from "./views/messenger/Messenger.component";
+import ShowImage from "./components/ShowImage.component";
 
 function App() {
     const {user} = useContext(AuthContext)
@@ -19,6 +20,7 @@ function App() {
             <Route path='/signup' element={<Register/>}/>
             <Route path='/profile/:username' element={<Profile/>}/>
             <Route path="/messenger" element={!user ? <Navigate to="/"/> : <Messenger/>}/>
+            <Route path="/showImage" element={<ShowImage/>}/>
         </Routes>
     );
 }

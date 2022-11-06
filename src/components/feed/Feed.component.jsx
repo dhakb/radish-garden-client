@@ -22,7 +22,7 @@ const Feed = ({username}) => {
                         `http://localhost:8080/api/posts/timeline/${userId}`
                     );
 
-                setPosts(response.data);
+                setPosts(response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
             } catch (err) {
                 console.log(err)
             }
@@ -30,12 +30,6 @@ const Feed = ({username}) => {
 
         fetchPosts();
     }, [username, userId]);
-
-
-
-    useEffect(() => {
-        setPosts(posts.sort((a, b) => a.createdAt - b.createdAt))
-    }, [])
 
 
     return (

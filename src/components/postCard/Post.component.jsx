@@ -1,5 +1,5 @@
 import {useContext, useEffect, useState} from "react";
-import {useNavigate, redirect} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {MoreVert} from "@mui/icons-material"
 import {format} from "timeago.js";
@@ -15,6 +15,7 @@ const Post = ({...post}) => {
     const [postAuthor, setPostAuthor] = useState({})
     const [likes, setLikes] = useState(post.likes.length)
     const [isLiked, setIsLiked] = useState(false)
+    const [postImage, setPostImage] = useState("")
     const navigate = useNavigate()
 
 
@@ -34,22 +35,32 @@ const Post = ({...post}) => {
 
 
     useEffect(() => {
-
         async function fetchUser() {
             const response = await axios.get(`http://localhost:8080/api/users/?userId=${post.userId}`)
             setPostAuthor(response.data)
         }
 
         fetchUser()
-
     }, [post.userId])
+
+
+    // Fetch image from Image collection by fileId
+    useEffect(() => {
+        async function fetchImage() {
+            const response = await axios.get(`http://localhost:8080/api/upload/${post.img}`)
+            setPostImage(response.data)
+        }
+
+        fetchImage()
+    }, [post.img])
 
 
     return (
         <div className="post">
             <div className="postWrapper">
                 <div className="postTop">
-                    <div className="postTopLeft" onClick={() => navigate(`profile/${postAuthor.username}`, {replace: true})}>
+                    <div className="postTopLeft"
+                         onClick={() => navigate(`profile/${postAuthor.username}`, {replace: true})}>
                         <img
                             className="postProfileImg"
                             src={PF + postAuthor.profilePicture}
@@ -66,7 +77,12 @@ const Post = ({...post}) => {
                 </div>
                 <div className="postCenter">
                     <span className="postText">{post.desc}</span>
-                    <img className="postImg" src={PF + post.img} alt=""/>
+                    {
+                        postImage?.filename &&
+                        <img className="postImg" src={`http://localhost:8080/api/upload/image/${postImage?.filename}`}
+                             alt=""/>
+                    }
+
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">
