@@ -1,4 +1,4 @@
-import {createContext, useReducer, useEffect} from "react";
+import {createContext, useEffect, useReducer} from "react";
 import axios from "axios"
 import {authReducer} from "./Auth.reducers";
 import {AUTH_ACTION_TYPES} from "./Auth.actions";
@@ -9,6 +9,8 @@ const CONTEXT_INITIAL_STATE = {
     error: null,
     loginUserAsync: () => {
     },
+    updateCurrentUser: () => {
+    }
 }
 
 export const AuthContext = createContext(CONTEXT_INITIAL_STATE)
@@ -26,7 +28,6 @@ const AuthContextProvider = ({children}) => {
     useEffect(() => {
         localStorage.setItem("user", JSON.stringify(user))
     }, [user])
-
 
 
     const loginUserStart = () => {
@@ -55,11 +56,16 @@ const AuthContextProvider = ({children}) => {
         }
     }
 
+    const updateCurrentUser = (updatedUser) => {
+        dispatch({type: AUTH_ACTION_TYPES.UPDATE_USER, payload: updatedUser})
+    }
+
     const value = {
         user,
         isFetching,
         error,
-        loginUserAsync
+        loginUserAsync,
+        updateCurrentUser
     }
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

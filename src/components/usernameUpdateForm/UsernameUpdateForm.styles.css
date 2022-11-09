@@ -1,0 +1,7 @@
+.username-update-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 50px;
+    padding: 15px;
+}

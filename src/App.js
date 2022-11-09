@@ -8,7 +8,9 @@ import Login from "./views/login/Login.component";
 import Register from "./views/register/Register.page";
 import Profile from "./views/profile/Profile.component";
 import Messenger from "./views/messenger/Messenger.component";
+import UserSettings from "./views/userSettings/UserSettings.component";
 import ShowImage from "./components/ShowImage.component";
+// import TopBar from "./components/topBar/TopBar.component";
 
 function App() {
     const {user} = useContext(AuthContext)
@@ -18,8 +20,9 @@ function App() {
             <Route path='/' element={user ? <Home/> : <Navigate to="/login"/>}/>
             <Route path="/login" element={!user ? <Login/> : <Navigate to="/"/>}/>
             <Route path='/signup' element={<Register/>}/>
-            <Route path='/profile/:username' element={<Profile/>}/>
+            <Route path='/profile/:username' element={user && <Profile/>}/>
             <Route path="/messenger" element={!user ? <Navigate to="/"/> : <Messenger/>}/>
+            <Route path="/settings/*" element={user && <UserSettings/>}/>
             <Route path="/showImage" element={<ShowImage/>}/>
         </Routes>
     );

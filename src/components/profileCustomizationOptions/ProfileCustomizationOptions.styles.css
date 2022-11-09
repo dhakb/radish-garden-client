@@ -1,0 +1,56 @@
+.profile-customization-container {
+    width: 100%;
+
+}
+
+.customization-options-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.customization-option {
+    width: 45%;
+}
+
+
+.custom-option-header {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.custom-option-subheader {
+    border-bottom: 1px solid #e3d6d3;
+    color: #c2bdbd;
+    font-size: 12px;
+    margin-bottom: 40px;
+}
+
+.section {
+    margin-bottom: 70px;
+}
+
+.custom-option {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+
+.custom-option-titles {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+
+.custom-title {
+    color: #111111;
+    font-weight: bold;
+}
+
+.custom-sub-title {
+    color: #91939a;
+    font-size: 12px;
+}

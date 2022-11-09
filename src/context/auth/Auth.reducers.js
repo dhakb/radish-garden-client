@@ -22,6 +22,13 @@ export const authReducer = (state, action) => {
                 isFetching: false,
                 error: payload
             }
+
+        case  AUTH_ACTION_TYPES.UPDATE_USER:
+            return {
+                ...state,
+                user: payload
+            }
+
         default:
             throw new Error(`Unhandled type of ${type} in authReducer`)
 

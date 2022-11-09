@@ -1,0 +1,30 @@
+.user-settings-preview-container {
+
+}
+
+
+.setting-header {
+    margin-bottom: 30px;
+}
+
+.setting-option-links {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e3d6d3;
+}
+
+.option-link {
+    text-decoration: none;
+    cursor: pointer;
+    color: #5e5b5b;
+    margin-bottom: 15px;
+}
+
+.active-option-link {
+    text-decoration: none;
+    cursor: pointer;
+    color: #111111;
+    border-bottom: 2px solid black;
+}
+

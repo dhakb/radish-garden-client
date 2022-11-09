@@ -1,0 +1,40 @@
+.account-setting-options-container {
+    width: 50%;
+}
+
+
+.option-header {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.option-subheader {
+    border-bottom: 1px solid #e3d6d3;
+    color: #c2bdbd;
+    font-size: 12px;
+    margin-bottom: 40px;
+}
+
+.option {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 60px;
+}
+
+
+.option-titles {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+
+.title {
+    color: #111111;
+    font-weight: bold;
+}
+
+.sub-title {
+    color: #91939a;
+    font-size: 12px;
+}
