@@ -38,3 +38,15 @@
     color: #91939a;
     font-size: 12px;
 }
+
+
+.change-btn {
+    width: 60px;
+    height: 30px;
+    background-color: #47156b;
+    border: none;
+    color: #f3efef;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}

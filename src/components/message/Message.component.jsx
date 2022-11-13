@@ -21,7 +21,7 @@ function Message({own, message}) {
         <div className={own ? "message own" : "message"}>
             <div className="messageTop">
                 <img className="messageImg"
-                     src={user?.profilePicture ? `${PF}${user.profilePicture}` : `${PF}avatar.png`}
+                     src={user?.profilePicture ? `http://localhost:8080/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
                      alt=""/>
                 <p className="messageText">{message.text}</p>
             </div>

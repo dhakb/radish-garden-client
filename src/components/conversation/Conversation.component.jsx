@@ -23,7 +23,7 @@ function Conversation({conversation, currentUser}) {
         <div className="conversation">
             <img
                 className="conversationImg"
-                src={`${user?.profilePicture ? PF + user.profilePicture : PF + "avatar.png"}`}
+                src={user?.profilePicture ? `http://localhost:8080/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
                 alt=""
             />
             <span className="conversationName">{user?.username}</span>

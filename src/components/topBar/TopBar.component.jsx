@@ -1,50 +1,56 @@
 import {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
-import axios from "axios"
 import {Chat, Notifications, Search} from "@mui/icons-material";
 
 import ProfileDropdown from "../accountDropdown/ProfileDropdown.component";
+import SearchOutputDropdown from "../searchOutputDropdown/SearchOutputDropdown.component";
 
 import {AuthContext} from "../../context/auth/Auth.context";
 import "./TopBar.styles.css"
+import axios from "axios";
 
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
 const TopBar = () => {
     const {user} = useContext(AuthContext)
     const navigate = useNavigate()
+    const [searchInput, setSearchInput] = useState("")
     const [rightClick, setRightClick] = useState(false)
-    const [avatarImage, setAvatarImage] = useState("")
-
+    const [filteredUsers, setFilteredUsers] = useState([])
 
     useEffect(() => {
-        const fetchAvatarImg = async () => {
-            const response = await axios.get(`http://localhost:8080/api/upload/${user.profilePicture}`)
-            setAvatarImage(response.data.filename)
+        const fetchUsersByfilter = async () => {
+            const response = await axios.get(`http://localhost:8080/api/users/filter/${searchInput}`)
+            // console.log(response)
+            setFilteredUsers(response.data)
         }
 
-        user.profilePicture && fetchAvatarImg()
-    }, [user.profilePicture])
+        searchInput && fetchUsersByfilter()
+    }, [searchInput])
 
 
     const rightClickAvatarHandler = (e) => {
         e.preventDefault()
         setRightClick(!rightClick)
     }
-    console.log(user.profilePicture)
-    console.log(avatarImage)
+
     return (
         <div className="topBarContainer">
             <div className="topBarLeft">
-                <Link to="/" style={{textDecoration: "none"}}>
+                <Link to="/" style={{textDecoration: "none"}} className="logo-container">
+                    <img className="radish-logo" src={PF+"purple_radish.png"} alt=""/>
                     <span className="log">Radish Garden</span>
                 </Link>
             </div>
             <div className="topBarCenter">
                 <div className="searchBar">
                     <Search className="searchIcon"/>
-                    <input type="text" className="searchInput" placeholder="search for users by username"/>
+                    <input type="text" className="searchInput" onChange={(e) => setSearchInput(e.target.value)}
+                           value={searchInput} placeholder="search for users by username..."/>
                 </div>
+                {
+                 searchInput && <SearchOutputDropdown users={filteredUsers}/>
+                }
             </div>
             <div className="topBarRight">
                 <div className="topBarIcons">
@@ -58,9 +64,10 @@ const TopBar = () => {
                     </div>
                 </div>
                 <div className="profile-info-wrapper">
-                    <div className="profile-info" onClick={() => navigate(`/profile/${user.username}`)} onContextMenu={rightClickAvatarHandler}>
+                    <div className="profile-info" onClick={() => navigate(`/profile/${user.username}`)}
+                         onContextMenu={rightClickAvatarHandler}>
                         <img
-                            src={avatarImage ? `http://localhost:8080/api/upload/image/${avatarImage}` : `${PF}avatar.png`}
+                            src={user.profilePicture ? `http://localhost:8080/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
                             alt=""
                             className="topBarImg"/>
                         <p>{user.username}</p>

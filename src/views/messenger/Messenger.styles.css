@@ -1,27 +1,27 @@
 .messenger {
-    height: calc(100vh - 70px);
+    height: calc(100vh - 120px);
     display: flex;
 }
 
 .chatMenu {
-    flex: 3.5;
+    flex: 3;
 }
 
 .chatMenuInput {
-    width: 90%;
-    padding: 10px 0;
+    width: 89%;
+    padding: 10px 5px;
     border: none;
     border-bottom: 1px solid gray;
 }
 
 .chatBox {
-    flex: 5.5;
+    flex: 6;
 }
 
 .chatBoxWrapper {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     position: relative;
 }
 
@@ -42,11 +42,13 @@
     width: 80%;
     height: 90px;
     padding: 10px;
+    resize: none;
 }
 
 .chatSubmitButton {
-    width: 70px;
-    height: 40px;
+    width: 15%;
+    margin-right: 10px;
+    height: 110px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -56,6 +58,12 @@
 
 .chatOnline {
     flex: 3;
+}
+
+.online-friends-messenger-title {
+    margin-left: 10px;
+    font-size: 20px;
+
 }
 
 .chatMenuWrapper,

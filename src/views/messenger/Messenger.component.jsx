@@ -1,6 +1,9 @@
 import {useContext, useEffect, useRef, useState} from "react";
 import axios from "axios";
-import {io} from "socket.io-client"
+// import {io} from "socket.io-client"
+
+import {AuthContext} from "../../context/auth/Auth.context";
+import socket from "../../features/socket";
 
 import TopBar from "../../components/topBar/TopBar.component";
 import Conversation from "../../components/conversation/Conversation.component";
@@ -9,10 +12,7 @@ import Message from "../../components/message/Message.component";
 
 import "./Messenger.styles.css"
 
-import {AuthContext} from "../../context/auth/Auth.context";
-
-
-function Messenger() {
+function Messenger({onlineFriends}) {
     const {user: currentUser} = useContext(AuthContext)
     const [conversations, setConversations] = useState([])
     const [currentChat, setCurrentChat] = useState("")
@@ -20,30 +20,17 @@ function Messenger() {
     const [newMessage, setNewMessage] = useState("")
     const [onlineUsers, setOnlineUsers] = useState([])
     const [arrivedMessage, setArrivedMessage] = useState(null)
-    const socket = useRef()
+    const textAreaRef = useRef()
     const scrollRef = useRef()
 
-
-    // Establish connection to socket server
     useEffect(() => {
-       socket.current = io("ws://localhost:8900")
-    }, [])
+        setOnlineUsers(onlineFriends)
+    }, [onlineFriends])
 
-
-
-    // Send user to add into socket server
-    // Get users from socket server
-    useEffect(() => {
-        socket.current.emit("addUser", currentUser._id)
-        socket.current.on("getUsers", onlineUsers => {
-            setOnlineUsers(currentUser?.followings?.filter(following => onlineUsers?.some(user => user.userId === following)))
-        })
-    }, [currentUser])
 
     // Receive message from socket
     useEffect(() => {
-        socket.current.on("getMessage", (message) => {
-
+        socket.on("getMessage", (message) => {
             setArrivedMessage({
                 ...message,
                 createdAt: Date.now()
@@ -58,7 +45,7 @@ function Messenger() {
     }, [arrivedMessage])
 
 
-    // Get Conversation from DB
+    // Get Conversations from DB
     useEffect(() => {
         const getConversations = async () => {
             try {
@@ -92,6 +79,27 @@ function Messenger() {
     }, [messages])
 
 
+
+    useEffect(() => {
+        const listener = (event) => {
+            if (event.key === "Enter") {
+                console.log(event.key)
+                sendMessageHandler()
+            }
+        };
+
+        if (textAreaRef.current) {
+            textAreaRef.current?.addEventListener("keydown", listener);
+        }
+
+        return () => {
+            if (textAreaRef.current) {
+                textAreaRef.current?.removeEventListener("keydown", listener);
+            }
+        };
+
+    }, [textAreaRef.current]);
+
     const sendMessageHandler = async () => {
 
         const messageToSend = {
@@ -102,7 +110,7 @@ function Messenger() {
 
         // Send message via socket.io
         const receiverId = currentChat.members?.find((member) => member !== currentUser._id)
-        socket.current.emit("sendMessage", receiverId, messageToSend)
+        socket.emit("sendMessage", receiverId, messageToSend)
 
         // Sent message to DB
         try {
@@ -132,7 +140,7 @@ function Messenger() {
                         }
                     </div>
                 </div>
-
+                <hr style={{height: "calc(100vh - 70px)", color: "purple"}}/>
                 <div className="chatBox">
                     {
                         currentChat ? (<div className="chatBoxWrapper">
@@ -148,9 +156,9 @@ function Messenger() {
                                     </div>
                                 </div>
                                 <div className="chatBoxBottom">
-                                    <textarea className="chatMessageInput" placeholder="write something..."
+                                    <textarea className="chatMessageInput" placeholder="Say something..."
                                               onChange={(e) => setNewMessage(e.target.value)}
-                                              value={newMessage}></textarea>
+                                              value={newMessage} ref={textAreaRef}></textarea>
                                     <button className="chatSubmitButton" onClick={sendMessageHandler}>Send</button>
                                 </div>
                             </div>)
@@ -158,10 +166,11 @@ function Messenger() {
                     }
 
                 </div>
-
+                <hr style={{height: "calc(100vh - 70px)", color: "purple"}}/>
                 <div className="chatOnline">
+                    <span className="online-friends-messenger-title">Online Friends ({onlineUsers?.length ? onlineUsers.length : "0"})</span>
                     <div className="chatOnlineWrapper">
-                        <ChatOnline currentUserId={currentUser._id} onlineUsers={onlineUsers} setCurrentChat={setCurrentChat}/>
+                        <ChatOnline currentUserId={currentUser._id} onlineUsers={onlineUsers} setCurrentChat={setCurrentChat} />
                     </div>
                 </div>
 

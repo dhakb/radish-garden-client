@@ -54,3 +54,40 @@
     color: #91939a;
     font-size: 12px;
 }
+
+.custom-change-btn {
+    width: 60px;
+    height: 30px;
+    background-color: #47156b;
+    border: none;
+    color: #f3efef;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.upload-image-banner {
+    position: relative;
+}
+
+.cancel-banner {
+    position: absolute;
+    left: 148px;
+    top: -15px;
+    cursor: pointer;
+}
+
+.cancel-avatar {
+    position: absolute;
+    top: -7px;
+    left: 45px;
+    cursor: pointer;
+}
+
+
+.upload-image-avatar {
+    position: relative;
+}
+
+

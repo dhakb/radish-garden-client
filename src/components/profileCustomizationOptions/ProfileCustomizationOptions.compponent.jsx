@@ -1,4 +1,5 @@
 import {useContext, useState} from "react";
+import {Cancel} from "@mui/icons-material"
 import axios from "axios";
 
 import {AuthContext} from "../../context/auth/Auth.context";
@@ -12,36 +13,63 @@ const ProfileCustomizationOptions = () => {
     const [updatedDimension, setUpdatedDimension] = useState("")
     const [avatarImg, setAvatarImg] = useState(null)
     const [avatarImgURL, setAvatarImgURL] = useState("")
-    const [bannerImg, setBannerImg] = useState(null)
+    const [bannerImg, setBannerImg] = useState("")
     const [bannerImgURL, setBannerImgURL] = useState("")
 
 
-    const imageUploadHandler = async () => {
-
+    const imageUpdateHandler = async () => {
 
         if (avatarImg) {
             const avatarImgData = new FormData()
             avatarImgData.append("file", avatarImg)
-            const {data: {fileId}} = await axios.post("http://localhost:8080/api/upload/", avatarImgData)
+            const {data: {filename}} = await axios.post("http://localhost:8080/api/upload/", avatarImgData)
             const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {
                 userId: user._id,
-                profilePicture: fileId
+                profilePicture: filename
             })
+
             updateCurrentUser(response)
         }
-
 
         if (bannerImg) {
             const bannerImgData = new FormData()
             bannerImgData.append("file", bannerImg)
-            const {data: {fileId}} = await axios.post("http://localhost:8080/api/upload/", bannerImgData)
+            const {data: {filename}} = await axios.post("http://localhost:8080/api/upload/", bannerImgData)
             const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {
                 userId: user._id,
-                coverPicture: fileId
+                coverPicture: filename
             })
             updateCurrentUser(response)
         }
 
+    }
+
+
+    const dimensionUpdateHandler = async () => {
+        const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {
+            userId: user._id,
+            dimension: updatedDimension,
+        })
+        updateCurrentUser(response)
+        setUpdatedDimension("")
+    }
+
+    const locationUpdateHandler = async () => {
+        const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {
+            userId: user._id,
+            location: updatedLocation,
+        })
+        updateCurrentUser(response)
+        setUpdatedLocation("")
+    }
+
+    const descUpdateHandler = async () => {
+        const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {
+            userId: user._id,
+            desc: updatedDesc,
+        })
+        updateCurrentUser(response)
+        setUpdatedDesc("")
     }
 
 
@@ -72,7 +100,7 @@ const ProfileCustomizationOptions = () => {
                                 <span
                                     className="custom-sub-title">current desc. <i>{user.desc ? user.desc : "no desc available"}</i></span>
                             </div>
-                            <button className="custom-change-btn">save</button>
+                            <button className="custom-change-btn" onClick={descUpdateHandler}>save</button>
                         </div>
                         <input type="text" id="desc" style={{width: "99%", height: "30px"}} value={updatedDesc}
                                onChange={(e) => setUpdatedDesc(e.target.value)}/>
@@ -85,7 +113,7 @@ const ProfileCustomizationOptions = () => {
                                 <span
                                     className="custom-sub-title">current location <i>{user.location ? user.location : "unknown"}</i></span>
                             </div>
-                            <button className="custom-change-btn">save</button>
+                            <button className="custom-change-btn" onClick={locationUpdateHandler}>save</button>
                         </div>
                         <input type="text" id="location" style={{width: "99%", height: "30px"}} value={updatedLocation}
                                onChange={(e) => setUpdatedLocation(e.target.value)}/>
@@ -98,7 +126,7 @@ const ProfileCustomizationOptions = () => {
                                 <span
                                     className="custom-sub-title">current dimension <i>{user.dimension ? user.dimension : "unknown"}</i></span>
                             </div>
-                            <button className="custom-change-btn">save</button>
+                            <button className="custom-change-btn" onClick={dimensionUpdateHandler}>save</button>
                         </div>
                         <input type="text" id="dimension" style={{width: "99%", height: "30px"}}
                                value={updatedDimension}
@@ -112,26 +140,48 @@ const ProfileCustomizationOptions = () => {
                     <section className="section">
                         <div className="custom-option">
                             <div className="custom-option-titles">
+                                {
+                                    avatarImgURL && <div className="upload-image-avatar">
+                                        <img src={avatarImgURL} alt="" style={{
+                                            width: "60px",
+                                            height: "60px",
+                                            borderRadius: "50%",
+                                            border: "1px solid black"
+                                        }}/>
+                                        <Cancel className="cancel-avatar" onClick={() => {setAvatarImgURL(""); document.getElementById("avatarImg").value = ""}}/>
+                                    </div>
+                                }
                                 <label className="custom-title">Avatar image</label>
                                 <span
                                     className="custom-sub-title">Images must be .png .jpg or .jpeg format</span>
                             </div>
-                            <button className="custom-change-btn" onClick={imageUploadHandler}>upload</button>
+                            <button className="custom-change-btn" onClick={imageUpdateHandler}>upload</button>
                         </div>
-                        <input type="file" accept=".png, .jpeg, .jpg" onChange={avatarChangeHandler}/>
+                        <input type="file" accept=".png, .jpeg, .jpg" onChange={avatarChangeHandler} id="avatarImg"/>
                     </section>
 
 
                     <section className="section">
                         <div className="custom-option">
                             <div className="custom-option-titles">
-                                <label className="custom-title">Avatar image</label>
+                                {
+                                    bannerImgURL && <div className="upload-image-banner">
+                                        <img src={bannerImgURL} alt="" style={{
+                                            width: "160px",
+                                            height: "50px",
+                                            borderRadius: "10px",
+                                            border: "1px solid black"
+                                        }}/>
+                                        <Cancel className="cancel-banner" onClick={() => {setBannerImgURL(""); document.getElementById("bannerImg").value = ""}}/>
+                                    </div>
+                                }
+                                <label className="custom-title">Banner image</label>
                                 <span
                                     className="custom-sub-title">Images must be .png .jpg or .jpeg format</span>
                             </div>
-                            <button className="custom-change-btn" onClick={imageUploadHandler}>upload</button>
+                            <button className="custom-change-btn" onClick={imageUpdateHandler}>upload</button>
                         </div>
-                        <input type="file" accept=".png, .jpeg, .jpg" onChange={bannerChangeHandler}/>
+                        <input type="file" accept=".png, .jpeg, .jpg" onChange={bannerChangeHandler} id="bannerImg"/>
                     </section>
                 </div>
 

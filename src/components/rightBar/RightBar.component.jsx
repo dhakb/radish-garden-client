@@ -1,7 +1,8 @@
 import {useContext, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import Online from "../online/Online.component";
 
+import Online from "../online/Online.component";
 import Following from "../rightBarFollowing/Following.component";
 import {AuthContext} from "../../context/auth/Auth.context";
 
@@ -9,16 +10,18 @@ import "./RightBar.styles.css"
 
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
-const RightBar = ({profile}) => {
-    const {user: currentUser} = useContext(AuthContext)
+const RightBar = ({profile, onlineFriends}) => {
+    const {user: currentUser, updateCurrentUser} = useContext(AuthContext)
     const [followings, setFollowings] = useState([])
     const [isFollowing, setIsFollowing] = useState(false)
+    const navigate = useNavigate()
+
 
     useEffect(() => {
         const fetchFollowings = async () => {
             try {
-                const followings = await axios.get(`http://localhost:8080/api/users/${profile?._id}/followings`)
-                setFollowings(followings.data)
+                const response = await axios.get(`http://localhost:8080/api/users/${profile?._id}/followings`)
+                 setFollowings(response.data)
             } catch (err) {
                 console.log(err)
             }
@@ -30,12 +33,18 @@ const RightBar = ({profile}) => {
 
     useEffect(() => {
         setIsFollowing(currentUser.followings.includes(profile?._id))
-    }, [currentUser.followings, profile])
+    }, [currentUser.followings, profile?._id])
 
 
     const followHandler = async () => {
         try {
-            !isFollowing ? await axios.put(`http://localhost:8080/api/users/${profile._id}/follow`, {userId: currentUser._id}) : await axios.put(`http://localhost:8080/api/users/${profile._id}/unfollow`, {userId: currentUser._id})
+            if(isFollowing) {
+                const response = await axios.put(`http://localhost:8080/api/users/${profile._id}/unfollow`, {userId: currentUser._id})
+                updateCurrentUser(response.data.updatedUser)
+            } else {
+                const response = await axios.put(`http://localhost:8080/api/users/${profile._id}/follow`, {userId: currentUser._id})
+                updateCurrentUser(response.data.updatedUser)
+            }
         } catch (err) {
             console.log(err)
         }
@@ -43,60 +52,74 @@ const RightBar = ({profile}) => {
     }
 
 
-    const HomeRightBar = () => {
+    const sendMessageHandler = async () => {
+        // Get a conversation by member id
+        const response = await axios.get(`http://localhost:8080/api/conversations/${currentUser._id}/${profile._id}`)
+
+        // if no conversation between two users create new
+        if(!response.data) {
+        const response = await axios.post("http://localhost:8080/api/conversations", {senderId: currentUser._id, receiverId: profile._id})
+            console.log(response.data)
+        }
+        navigate("/messenger")
+    }
+
+
+    const HomePageRightBar = () => {
         return (
-            <div className="unknownContainer">
-                <div>
-                    <h1>Unknown component</h1>
-                    <img className="img" src={`${PF}gift.png`} alt=""/>
-                    <span className="text">
-                    some text. should go someting
-                </span>
-                </div>
-                <img className="rightbarAd" src="/assets/ad.png" alt=""/>
-                <h4 className="rightbarTitle">Online Friends</h4>
-                <ul className="rightbarFriendList">
-                    <Online/>
-                    <Online/>
+            <div className="online-friends-container">
+                <h4 className="rightbarTitle">Online Friends ({onlineFriends?.length ? onlineFriends.length : "0"})</h4>
+                <ul className="rightbar-online-FriendList">
+                    {
+                        onlineFriends?.map(friend => (
+                            <Online friend={friend} key={friend}/>
+                        ))
+                    }
                 </ul>
             </div>);
     };
 
 
-    const ProfileRightBar = () => {
-        return (<div className="profileRightBarContainer">
-            {currentUser.username !== profile.username &&
-                <button className="rigthbarFollowingButton" onClick={followHandler}>
-                    {isFollowing ? "Unfollow" : "Follow"}
-                </button>}
-            <h4 className="rightbarTitle">User information</h4>
-            <div className="rightbarInfo">
-                <div className="rightbarInfoItem">
-                    <span className="rightbarInfoKey">City:</span>
-                    <span className="rightbarInfoValue">{profile.city}</span>
+    const ProfilePageRightBar = () => {
+        return (
+            <div className="profileRightBarContainer">
+                <div className="rightbar-buttons">
+                    {
+                        currentUser.username !== profile.username &&
+                        <button className="rigthbarFollowingButton" onClick={followHandler}>
+                            {isFollowing ? "Unfollow" : "Follow"}
+                        </button>
+                    }
+                    {
+                        currentUser.username !== profile.username &&
+                        <button className="rigthbarMessageButton" onClick={sendMessageHandler}>Message</button>
+                    }
+
                 </div>
-                <div className="rightbarInfoItem">
-                    <span className="rightbarInfoKey">Country:</span>
-                    <span className="rightbarInfoValue">{profile.country}</span>
+                <div className="rightbarInfo">
+                    <div className="rightbarInfoItem">
+                        <span className="rightbarInfoKey">Location:</span>
+                        <span className="rightbarInfoValue">{profile.location ? profile.location : "Unknown"}</span>
+                    </div>
+                    <div className="rightbarInfoItem">
+                        <span className="rightbarInfoKey">Dimension:</span>
+                        <span className="rightbarInfoValue">{profile.dimension ? profile.dimension : "Unknown"}</span>
+                    </div>
                 </div>
-                <div className="rightbarInfoItem">
-                    <span className="rightbarInfoKey">Relationship:</span>
-                    <span className="rightbarInfoValue">Single</span>
+                <h4 className="rightbarTitle">followings</h4>
+                <div className="rightbarFollowings">
+                    {
+                        followings.map(following => (
+                            <Following following={following} key={following._id}/>
+                        ))
+                    }
                 </div>
             </div>
-            <h4 className="rightbarTitle">followings</h4>
-            <div className="rightbarFollowings">
-                {
-                    followings.map(following => (
-                        <Following following={following} key={following._id}/>
-                    ))
-                }
-            </div>
-        </div>);
+        );
     };
     return (<div className="rightbar">
         <div className="rightbarWrapper">
-            {profile ? <ProfileRightBar/> : <HomeRightBar/>}
+            {profile ? <ProfilePageRightBar/> : <HomePageRightBar/>}
         </div>
     </div>);
 }

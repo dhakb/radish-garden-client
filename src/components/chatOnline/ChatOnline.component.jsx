@@ -19,13 +19,18 @@ function ChatOnline({currentUserId, onlineUsers, setCurrentChat}) {
 
 
     useEffect(() => {
-        setOnlineFollowings(followings.filter(following => onlineUsers.includes(following._id)))
+        setOnlineFollowings(followings.filter(following => onlineUsers?.includes(following._id)))
     }, [followings, onlineUsers])
 
     const getConversationHandler = async (userId) => {
         try {
         const response = await axios.get(`http://localhost:8080/api/conversations/${userId}/${currentUserId}`)
-        setCurrentChat(response.data)
+            if(!response.data) {
+                const newConversation = await axios.post(`http://localhost:8080/api/conversations`, {senderId: currentUserId, receiverId: userId})
+                setCurrentChat(newConversation.data)
+                return;
+            }
+            setCurrentChat(response.data)
         } catch (err) {
             console.log(err)
         }
@@ -39,7 +44,8 @@ function ChatOnline({currentUserId, onlineUsers, setCurrentChat}) {
                 onlineFollowings.map((following) => (
                     <div className="chatOnlineFriend" key={following._id} onClick={() => getConversationHandler(following._id)}>
                         <div className="chatOnlineImgContainer">
-                            <img className="chatOnlineImg" src={following?.profilePicture ? `${PF}${following.profilePicture}` : `${PF}avatar.png`} alt=""/>
+                            <img className="chatOnlineImg"
+                                 src={following?.profilePicture ? `http://localhost:8080/api/upload/image/${following.profilePicture}` : `${PF}avatar.png`} alt=""/>
                             <div className="chatOnlineBadge"></div>
                         </div>
                         <span className="chatOnlineName">{following?.username}</span>

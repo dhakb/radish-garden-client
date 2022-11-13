@@ -3,17 +3,12 @@ import {useNavigate} from "react-router-dom";
 
 import {AuthContext} from "../../context/auth/Auth.context";
 
-
 import {
     Bookmark,
     Chat,
-    Event,
-    Group,
     HelpOutline,
     PlayCircleFilledOutlined,
     RssFeed,
-    School,
-    WorkOutline
 } from "@mui/icons-material";
 
 import "./SideBar.styles.css"
@@ -40,9 +35,8 @@ const SideBar = () => {
             }
         }
 
-        getFollowings()
+         getFollowings()
     }, [currentUser])
-
 
     return (
         <div className="sideBar">
@@ -61,10 +55,6 @@ const SideBar = () => {
                         <span className="sidebarListItemText">Videos</span>
                     </li>
                     <li className="sidebarListItem">
-                        <Group className="sidebarIcon"/>
-                        <span className="sidebarListItemText">Groups</span>
-                    </li>
-                    <li className="sidebarListItem">
                         <Bookmark className="sidebarIcon"/>
                         <span className="sidebarListItemText">Bookmarks</span>
                     </li>
@@ -72,25 +62,13 @@ const SideBar = () => {
                         <HelpOutline className="sidebarIcon"/>
                         <span className="sidebarListItemText">Questions</span>
                     </li>
-                    <li className="sidebarListItem">
-                        <WorkOutline className="sidebarIcon"/>
-                        <span className="sidebarListItemText">Jobs</span>
-                    </li>
-                    <li className="sidebarListItem">
-                        <Event className="sidebarIcon"/>
-                        <span className="sidebarListItemText">Events</span>
-                    </li>
-                    <li className="sidebarListItem">
-                        <School className="sidebarIcon"/>
-                        <span className="sidebarListItemText">Courses</span>
-                    </li>
                 </ul>
-                <button className="sidebarButton">show more</button>
                 <hr className="sidebarHr"/>
+                <h2 className="side-bar-following-title">Plants You Follow ({followings.length})</h2>
                 <ul className="sidebarFriendList">
                     {
-                        followings.map(following => (
-                            <CloseFriend user={following} key={following._id} navigateToProfile={() => navigate(`/profile/${following.username}`)}/>
+                       followings?.map(following => (
+                            <CloseFriend user={following} key={following?._id} navigateToProfile={() => navigate(`/profile/${following.username}`)}/>
                         ))
                     }
                 </ul>

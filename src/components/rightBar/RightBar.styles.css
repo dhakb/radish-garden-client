@@ -1,4 +1,4 @@
-.unknownContainer {
+.online-friends-container {
     padding: 15px;
     border-radius: 10px;
     -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
@@ -39,13 +39,14 @@
     flex-direction: column;
     padding: 20px;
     margin-right: 10px;
+    gap: 20px
 }
 
 .rightbarTitle{
     margin-bottom: 20px;
 }
 
-.rightbarFriendList {
+.rightbar-online-FriendList {
     padding: 0;
     margin: 0;
     list-style: none;
@@ -73,6 +74,7 @@
 
 .rightbarInfoValue{
     font-weight: 300;
+    font-style: italic;
 }
 
 .rightbarFollowings{
@@ -96,11 +98,17 @@
     border-radius: 5px;
 }
 
+.rightbar-buttons {
+    display: flex;
+    gap: 10px
+}
+
 .rigthbarFollowingButton {
     margin-top: 30px;
+    width: 90px;
     margin-bottom: 10px;
+    background-color: #0f499b;
     border: none;
-    background-color: #1775ee;
     color: whitesmoke;
     border-radius: 5px;
     padding: 5px 10px;
@@ -112,5 +120,23 @@
 }
 
 .rigthbarFollowingButton:active {
-    background-color: blue;
+    background-color: #1f67c7;
+}
+
+.rigthbarMessageButton {
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    color: whitesmoke;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: #3e750a;
+    border: none;
+    margin-top: 30px;
+    width: 90px;
+    margin-bottom: 10px;
+}
+
+.rigthbarMessageButton:active {
+    background-color: #58a20f;
 }

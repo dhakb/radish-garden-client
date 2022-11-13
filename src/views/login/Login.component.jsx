@@ -6,6 +6,7 @@ import {AuthContext} from "../../context/auth/Auth.context";
 
 import "./Login.styles.css"
 
+const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
 const Login = () => {
     const {loginUserAsync, isFetching} = useContext(AuthContext)
@@ -38,13 +39,14 @@ const Login = () => {
 
     return (
         <div className="login">
-
             <div className="loginWrapper">
                 <div className="loginLeft">
-                    <h3 className="loginLogo">PRIM social</h3>
+                    {/*<img src={PF + "radish_logo_a.png"} alt="" className="radish-logo-login"/>*/}
+                    <img src={PF + "purple_radish.png"} alt="" className="radish-logo-login"/>
+                    <h3 className="loginLogo-name">Radish Garden</h3>
                     <span className="loginDesc">
-            Connect with friends and the world around you on Lamasocial.
-          </span>
+                        Connect with plants and make friends.
+                    </span>
                 </div>
                 <div className="loginRight">
                     <form onSubmit={logInSubmitHandler} className="loginBox">
@@ -58,7 +60,7 @@ const Login = () => {
                         <button className="loginButton" type="submit" disabled={isFetching}>
                             {isFetching ? <CircularProgress size="25px" color="inherit"/> : "Log In"}
                         </button>
-                        <span className="loginForgot">Forgot Password?</span>
+                        <span className="loginForgot"></span>
                         <button className="loginRegisterButton" onClick={signUpHandler}>
                             Create a New Account
                         </button>

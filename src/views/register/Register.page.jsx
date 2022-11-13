@@ -4,6 +4,8 @@ import axios from "axios";
 
 import "./Register.styles.css"
 
+const PF = process.env.REACT_APP_PUBLIC_FOLDER
+
 const Register = () => {
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
@@ -48,13 +50,14 @@ const Register = () => {
         <div className="login">
             <div className="loginWrapper">
                 <div className="loginLeft">
-                    <h3 className="loginLogo">Lamasocial</h3>
+                    <img src={PF + "purple_radish.png"} alt="" className="radish-logo-login"/>
+                    <h3 className="loginLogo-name">Radish Garden</h3>
                     <span className="loginDesc">
-            Connect with friends and the world around you on Lamasocial.
-          </span>
+                        Connect with plants and make friends.
+                    </span>
                 </div>
                 <div className="loginRight">
-                    <div className="loginBox">
+                    <div className="register-box">
                         <input placeholder="Username" className="loginInput" value={username}
                                onChange={userNameChangeHandler} required/>
                         <input placeholder="Email" className="loginInput" value={email} onChange={emailChangeHandler}
