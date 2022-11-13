@@ -1,6 +1,5 @@
 .profile-customization-container {
     width: 100%;
-
 }
 
 .customization-options-wrapper {
@@ -88,6 +87,18 @@
 
 .upload-image-avatar {
     position: relative;
+}
+
+
+
+@media (max-width: 968px) {
+    .customization-options-wrapper {
+        flex-direction: column;
+    }
+
+    .customization-option {
+        width: 100%;
+    }
 }
 
 

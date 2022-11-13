@@ -21,7 +21,7 @@ const RightBar = ({profile, onlineFriends}) => {
         const fetchFollowings = async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/api/users/${profile?._id}/followings`)
-                 setFollowings(response.data)
+                setFollowings(response.data)
             } catch (err) {
                 console.log(err)
             }
@@ -38,7 +38,7 @@ const RightBar = ({profile, onlineFriends}) => {
 
     const followHandler = async () => {
         try {
-            if(isFollowing) {
+            if (isFollowing) {
                 const response = await axios.put(`http://localhost:8080/api/users/${profile._id}/unfollow`, {userId: currentUser._id})
                 updateCurrentUser(response.data.updatedUser)
             } else {
@@ -57,8 +57,11 @@ const RightBar = ({profile, onlineFriends}) => {
         const response = await axios.get(`http://localhost:8080/api/conversations/${currentUser._id}/${profile._id}`)
 
         // if no conversation between two users create new
-        if(!response.data) {
-        const response = await axios.post("http://localhost:8080/api/conversations", {senderId: currentUser._id, receiverId: profile._id})
+        if (!response.data) {
+            const response = await axios.post("http://localhost:8080/api/conversations", {
+                senderId: currentUser._id,
+                receiverId: profile._id
+            })
             console.log(response.data)
         }
         navigate("/messenger")
@@ -117,11 +120,13 @@ const RightBar = ({profile, onlineFriends}) => {
             </div>
         );
     };
-    return (<div className="rightbar">
-        <div className="rightbarWrapper">
-            {profile ? <ProfilePageRightBar/> : <HomePageRightBar/>}
+    return (
+        <div className="rightbar">
+            <div className="rightbarWrapper">
+                {profile ? <ProfilePageRightBar/> : <HomePageRightBar/>}
+            </div>
         </div>
-    </div>);
+    );
 }
 
 export default RightBar;

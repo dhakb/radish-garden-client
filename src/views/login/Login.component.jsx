@@ -41,7 +41,6 @@ const Login = () => {
         <div className="login">
             <div className="loginWrapper">
                 <div className="loginLeft">
-                    {/*<img src={PF + "radish_logo_a.png"} alt="" className="radish-logo-login"/>*/}
                     <img src={PF + "purple_radish.png"} alt="" className="radish-logo-login"/>
                     <h3 className="loginLogo-name">Radish Garden</h3>
                     <span className="loginDesc">

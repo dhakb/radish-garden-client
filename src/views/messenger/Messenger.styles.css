@@ -95,6 +95,10 @@
     }
 
     .chatOnline{
-        flex: 1px;
+        flex: 2;
+    }
+
+    .online-friends-messenger-title {
+        display: none;
     }
 }

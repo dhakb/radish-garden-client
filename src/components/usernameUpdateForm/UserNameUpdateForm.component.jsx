@@ -28,10 +28,10 @@ const UserNameUpdateForm = ({onModalClose}) => {
 
     return (
         <div className="username-update-form-container">
-            <h1>Update your username</h1>
-            <p>Update your username below. There will be a new verification email sent that you will need to use to verify this new username.</p>
+            <h1 className="username-update-form-username">Update username</h1>
+            <p className="username-update-form-message">Update your username below. There will be a new verification email sent that you will need to use to verify this new username.</p>
             <input placeholder="NEW USERNAME" onChange={(e) => setUpdatedUsername(e.target.value)}/>
-            <button onClick={saveChangesHandler}>save</button>
+            <button onClick={saveChangesHandler} className="username-update-form-btn">save</button>
         </div>
     );
 };

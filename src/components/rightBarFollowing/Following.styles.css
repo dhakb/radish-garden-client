@@ -12,3 +12,17 @@
     object-fit: cover;
     border-radius: 5px;
 }
+
+@media (max-width: 1200px) {
+    /*.rightbarFollowing{*/
+    /*    width: 80px;*/
+    /*    height: 80px;*/
+    /*}*/
+
+    .rightbarFollowingImg{
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+}

@@ -11,12 +11,16 @@
 
 .modal {
     position: fixed;
+    color: #111111;
     top: 25vh;
     left: 35%;
     width: 30%;
     height: 350px;
     z-index: 100;
     overflow: hidden;
-    background: whitesmoke;
+    background: rgba(164, 157, 157, 0.98);
     border-radius: 8px;
+    -webkit-box-shadow: -5px 15px 280px 12px rgba(56,34,56,1);
+    -moz-box-shadow: -5px 15px 280px 12px rgba(56,34,56,1);
+    box-shadow: -5px 15px 280px 12px rgba(56,34,56,1);
 }

@@ -1,5 +1,5 @@
 import {useContext, useEffect, useState} from 'react';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
 
 import {AuthContext} from "../../context/auth/Auth.context";
 
@@ -42,22 +42,22 @@ const SideBar = () => {
         <div className="sideBar">
             <div className="sideBarWrapper">
                 <ul className="sidebarList">
-                    <li className="sidebarListItem">
+                    <Link to="/" className="sidebarListItem" style={{textDecoration: "none", color: "inherit"}} onClick={() => window.location.reload()}>
                         <RssFeed/>
                         <span className="sidebarListItemText">Feed</span>
-                    </li>
-                    <li className="sidebarListItem">
+                    </Link>
+                    <Link to="/messenger" className="sidebarListItem" style={{textDecoration: "none", color: "inherit"}}>
                         <Chat className="sidebarIcon"/>
                         <span className="sidebarListItemText">Chats</span>
-                    </li>
-                    <li className="sidebarListItem">
-                        <PlayCircleFilledOutlined className="sidebarIcon"/>
-                        <span className="sidebarListItemText">Videos</span>
-                    </li>
-                    <li className="sidebarListItem">
-                        <Bookmark className="sidebarIcon"/>
-                        <span className="sidebarListItemText">Bookmarks</span>
-                    </li>
+                    </Link>
+                    {/*<li className="sidebarListItem">*/}
+                    {/*    <PlayCircleFilledOutlined className="sidebarIcon"/>*/}
+                    {/*    <span className="sidebarListItemText">Videos</span>*/}
+                    {/*</li>*/}
+                    {/*<li className="sidebarListItem">*/}
+                    {/*    <Bookmark className="sidebarIcon"/>*/}
+                    {/*    <span className="sidebarListItemText">Bookmarks</span>*/}
+                    {/*</li>*/}
                     <li className="sidebarListItem">
                         <HelpOutline className="sidebarIcon"/>
                         <span className="sidebarListItemText">Questions</span>

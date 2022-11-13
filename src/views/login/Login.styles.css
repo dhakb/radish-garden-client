@@ -111,3 +111,52 @@
 .loginRegisterButton:active {
     background-color: #47a136 !important;
 }
+
+
+
+@media (max-width: 1250px) {
+    .radish-logo-login {
+        width: 200px;
+    }
+
+
+    .loginLogo-name {
+        font-size: 38px;
+    }
+
+    .loginDesc {
+        font-size: 30px!important;
+    }
+
+    .loginRegisterButton {
+        font-size: 16px;
+    }
+}
+
+
+@media (max-width: 968px) {
+    .loginWrapper {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        gap: 50px;
+    }
+
+    .radish-logo-login {
+        width: 200px;
+    }
+
+
+    .loginLogo-name {
+        font-size: 38px;
+    }
+
+    .loginDesc {
+        font-size: 30px!important;
+    }
+
+    .loginRegisterButton {
+        font-size: 16px;
+    }
+}

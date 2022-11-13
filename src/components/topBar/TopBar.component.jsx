@@ -21,7 +21,6 @@ const TopBar = () => {
     useEffect(() => {
         const fetchUsersByfilter = async () => {
             const response = await axios.get(`http://localhost:8080/api/users/filter/${searchInput}`)
-            // console.log(response)
             setFilteredUsers(response.data)
         }
 
@@ -39,7 +38,7 @@ const TopBar = () => {
             <div className="topBarLeft">
                 <Link to="/" style={{textDecoration: "none"}} className="logo-container">
                     <img className="radish-logo" src={PF+"purple_radish.png"} alt=""/>
-                    <span className="log">Radish Garden</span>
+                    <span className="logo-title">Radish Garden</span>
                 </Link>
             </div>
             <div className="topBarCenter">
@@ -70,7 +69,7 @@ const TopBar = () => {
                             src={user.profilePicture ? `http://localhost:8080/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
                             alt=""
                             className="topBarImg"/>
-                        <p>{user.username}</p>
+                        <p className="profile-info-username">{user.username}</p>
                     </div>
 
                     {

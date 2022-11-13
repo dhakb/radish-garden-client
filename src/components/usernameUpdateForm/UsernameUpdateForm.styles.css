@@ -5,3 +5,26 @@
     gap: 50px;
     padding: 15px;
 }
+
+.username-update-form-username {
+    color: #111111;
+}
+
+.username-update-form-message {
+    color: #111111;
+}
+
+.username-update-form-btn {
+    border: none;
+    background-color: #2b0a3f;
+    color: #c2bdbd;
+    height: 30px;
+}
+
+.username-update-form-btn:active {
+    background-color: #420f65;
+}
+
+.username-update-form-btn:hover {
+    cursor: pointer;
+}

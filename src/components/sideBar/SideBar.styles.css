@@ -84,7 +84,41 @@
 }
 .side-bar-following-title {
     margin-bottom: 15px;
-    font-size: 16px;
+    color: #111111;
+    font-size: 12px;
     font-weight: lighter;
 
+}
+
+
+@media (max-width: 968px) {
+    .sidebarListItem {
+        gap: 5px;
+    }
+
+    .sidebarListItemText {
+       font-size: 16px;
+    }
+
+    .side-bar-following-title {
+       display: none;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .sidebarListItemText {
+        display: none;
+    }
+    .side-bar-following-title {
+        display: none;
+    }
+
+    .sideBarWrapper {
+        padding: 10px;
+    }
+
+    .sidebarListItem {
+        justify-content: center;
+    }
 }

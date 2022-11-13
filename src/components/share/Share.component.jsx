@@ -14,7 +14,6 @@ const Share = () => {
     const [image, setImage] = useState(null)
     const postInputRef = useRef()
 
-
     const submitPostHandler = async (e) => {
         e.preventDefault()
 
@@ -76,7 +75,7 @@ const Share = () => {
                     imageURL && (
                         <div className="shareImgContainer">
                             <img src={imageURL} className="shareImg" alt="shared image"/>
-                            <Cancel className="shareCancelButton" onClick={() => setImageURL(null)}/>
+                            <Cancel className="shareCancelButton" onClick={() => {setImageURL(""); setImage(null)}}/>
                         </div>
                     )
                 }

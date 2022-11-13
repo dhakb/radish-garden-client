@@ -50,3 +50,11 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+
+@media (max-width: 968px) {
+    .account-setting-options-container {
+        width: 100%;
+    }
+
+}

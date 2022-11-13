@@ -3,7 +3,7 @@
     border-radius: 10px;
     -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
     box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
-    margin-right: 10px; 
+    margin-right: 10px;
 }
 
 .rightbar {
@@ -42,7 +42,7 @@
     gap: 20px
 }
 
-.rightbarTitle{
+.rightbarTitle {
     margin-bottom: 20px;
 }
 
@@ -52,51 +52,47 @@
     list-style: none;
 }
 
-.rightbarTitle{
-    font-size: 18px;
+.rightbarTitle {
+    font-size: 20px;
+    color: #111111;
+    font-family: 'Caveat', cursive;
     font-weight: 500;
     margin-bottom: 10px;
 }
 
-.rightbarInfo{
+.rightbarInfo {
     margin-bottom: 30px;
 }
 
-.rightbarInfoItem{
+.rightbarInfoItem {
     margin-bottom: 10px;
 }
 
-.rightbarInfoKey{
+.rightbarInfoKey {
     font-weight: 500;
     margin-right: 15px;
     color: #555;
 }
 
-.rightbarInfoValue{
+.rightbarInfoValue {
     font-weight: 300;
     font-style: italic;
 }
 
-.rightbarFollowings{
+.rightbarFollowings {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 20px;
     row-gap: 20px;
 }
 
-.rightbarFollowing{
+.rightbarFollowing {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
     cursor: pointer;
 }
 
-.rightbarFollowingImg{
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 5px;
-}
 
 .rightbar-buttons {
     display: flex;
@@ -140,3 +136,26 @@
 .rigthbarMessageButton:active {
     background-color: #58a20f;
 }
+
+
+@media (max-width: 1200px) {
+
+    .profileRightBarContainer {
+        width: 260px;
+    }
+
+    .rightbarFollowings {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 10px;
+        row-gap: 10px;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .rightbar {
+        display: none;
+    }
+}
+

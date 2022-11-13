@@ -26,7 +26,7 @@ const AccountSettingOptions = () => {
                         <span className="title">Change username</span>
                         <span className="sub-title">current username <i>{user.username}</i></span>
                     </div>
-                    <button className="change-btn" onClick={() => setIsChangingUsername(!isChangingUsername)}>save
+                    <button className="change-btn" onClick={() => setIsChangingUsername(!isChangingUsername)}>Change
                     </button>
                 </div>
                 <div className="option">
@@ -34,26 +34,23 @@ const AccountSettingOptions = () => {
                         <span className="title">Change password</span>
                         <span className="sub-title">Password must be at least 8 characters long</span>
                     </div>
-                    <button className="change-btn" onClick={() => setIsChangingPassword(true)}>save</button>
+                    <button className="change-btn" onClick={() => setIsChangingPassword(true)}>Change</button>
                 </div>
             </section>
 
             <section>
-
+                {
+                    isChangingUsername && <AccountUpdateModal onDismiss={setIsChangingUsername}
+                                                              isOpened={isChangingUsername}>
+                        <UserNameUpdateForm onModalClose={setIsChangingUsername}/>
+                    </AccountUpdateModal>
+                }
+                {
+                    isChangingPassword && <AccountUpdateModal onDismiss={setIsChangingPassword}>
+                        <PasswordUpdateForm onModalClose={setIsChangingPassword}/>
+                    </AccountUpdateModal>
+                }
             </section>
-
-
-            {
-                isChangingUsername && <AccountUpdateModal onDismiss={setIsChangingUsername}
-                                                          isOpened={isChangingUsername}>
-                    <UserNameUpdateForm onModalClose={setIsChangingUsername}/>
-                </AccountUpdateModal>
-            }
-            {
-                isChangingPassword && <AccountUpdateModal onDismiss={setIsChangingPassword}>
-                    <PasswordUpdateForm onModalClose={setIsChangingPassword}/>
-                </AccountUpdateModal>
-            }
         </div>
     );
 };

@@ -10,10 +10,12 @@ const PasswordUpdateForm = ({onModalClose}) => {
     const [newPassword, setNewPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
 
+    console.log(newPassword, confirmPassword)
 
     const saveChangesHandler = async () => {
-        if (newPassword !== confirmPassword && confirmPassword < 6) {
-            alert("passwords should match and be at list six chars")
+
+        if (newPassword !== confirmPassword || confirmPassword.length < 6) {
+            alert("passwords should match and be at least 6 chars")
             return
         }
 
@@ -34,11 +36,11 @@ const PasswordUpdateForm = ({onModalClose}) => {
 
     return (
         <div className="password-update-form-container">
-            <h1>Change password</h1>
-            <p>Update password below.</p>
-            <input placeholder="NEW PASSWORD" onChange={(e) => setNewPassword(e.target.value)} value={newPassword}/>
-            <input placeholder="CONFIRM PASSWORD" onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword}/>
-            <button onClick={saveChangesHandler}>Assign password</button>
+            <h1 className="password-update-form-title">Change password</h1>
+            <p className="password-update-form-message">Update password below.</p>
+            <input type="password" placeholder="NEW PASSWORD" onChange={(e) => setNewPassword(e.target.value)} value={newPassword}/>
+            <input type="password" placeholder="CONFIRM PASSWORD" onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword}/>
+            <button onClick={saveChangesHandler} className="password-update-form-btn">save</button>
         </div>
     );
 };
