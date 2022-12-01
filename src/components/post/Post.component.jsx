@@ -5,7 +5,7 @@ import {MoreVert} from "@mui/icons-material"
 import {format} from "timeago.js";
 
 import {AuthContext} from "../../context/auth/Auth.context";
-
+import PostComment from "../postComment/PostComment.component";
 import "./Post.styles.css"
 
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
@@ -14,6 +14,8 @@ const Post = ({...post}) => {
     const {user} = useContext(AuthContext)
     const [postAuthor, setPostAuthor] = useState({})
     const [likes, setLikes] = useState(post.likes.length)
+    const [commentToAdd, setCommentToAdd] = useState("")
+    const [comments, setComments] = useState([])
     const [isLiked, setIsLiked] = useState(false)
     const [isOptsOpened, setIsOptsOpened] = useState(false)
 
@@ -30,6 +32,16 @@ const Post = ({...post}) => {
         }
         fetchUser()
     }, [post.userId])
+
+
+    useEffect(() => {
+        const fetchComments = async () => {
+            const response = await axios.get(`http://localhost:8080/api/comments/${post._id}`)
+            setComments(response.data)
+        }
+
+        fetchComments()
+    }, [post._id])
 
 
     const likeHandler = () => {
@@ -57,6 +69,11 @@ const Post = ({...post}) => {
     const postEditHandler = async () => {
         // await axios.put(`http://localhost:8080/api/posts/${post._id}`)
         setIsOptsOpened(false)
+    }
+
+    const addCommentHandler = async () => {
+        await axios.post("http://localhost:8080/api/comments/", {text: commentToAdd, authorId: user._id, postId: post._id})
+        setCommentToAdd("")
     }
 
 
@@ -113,8 +130,21 @@ const Post = ({...post}) => {
                         <span className="postLikeCounter">{likes}</span>
                     </div>
                     <div className="postBottomRight">
-                        <span className="postCommentText">comments {post.comment}</span>
+                        <span className="postCommentText">comments </span>
                     </div>
+                </div>
+                <hr style={{margin: "8px 0px 8px 0px"}}/>
+                <div className="add-comment-container">
+                    <div className="add-comment-input">
+                        <span className="add-comment-input-header">comment as @username</span>
+                        <input type="text" onChange={(e) => setCommentToAdd(e.target.value)} value={commentToAdd} placeholder="add comment" className="comment-"/>
+                    </div>
+                    <button type="button" className="add-comment-button" onClick={addCommentHandler}>comment</button>
+                </div>
+                <div className="comments-list">
+                    {
+                        comments.map((comment) => <PostComment key={comment._id} comment={comment}/>)
+                    }
                 </div>
             </div>
         </div>
