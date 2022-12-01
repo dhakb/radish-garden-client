@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
-import {MoreVert} from "@mui/icons-material"
+import {MoreVert, Cancel} from "@mui/icons-material"
 import {format} from "timeago.js";
 
 import {AuthContext} from "../../context/auth/Auth.context";
@@ -18,6 +18,9 @@ const Post = ({...post}) => {
     const [comments, setComments] = useState([])
     const [isLiked, setIsLiked] = useState(false)
     const [isOptsOpened, setIsOptsOpened] = useState(false)
+    const [isCommentsUpdated, setIsCommentsUpdated] = useState(false)
+    const [isCommentEditMode, setIsCommentEditMode] = useState(false)
+    const [commentIdToEdit, setCommentIdToEdit] = useState("")
 
 
     useEffect(() => {
@@ -37,11 +40,11 @@ const Post = ({...post}) => {
     useEffect(() => {
         const fetchComments = async () => {
             const response = await axios.get(`http://localhost:8080/api/comments/${post._id}`)
-            setComments(response.data)
+            setComments(response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)))
         }
 
         fetchComments()
-    }, [post._id])
+    }, [post._id, isCommentsUpdated])
 
 
     const likeHandler = () => {
@@ -72,8 +75,21 @@ const Post = ({...post}) => {
     }
 
     const addCommentHandler = async () => {
-        await axios.post("http://localhost:8080/api/comments/", {text: commentToAdd, authorId: user._id, postId: post._id})
+        commentToAdd && await axios.post("http://localhost:8080/api/comments/", {text: commentToAdd, authorId: user._id, postId: post._id})
         setCommentToAdd("")
+        setIsCommentsUpdated(!isCommentsUpdated)
+    }
+
+    const updateCommentHandler = async () => {
+        (commentToAdd && isCommentEditMode) && await axios.put(`http://localhost:8080/api/comments/${commentIdToEdit}`, {text: commentToAdd})
+        setCommentToAdd("")
+        setIsCommentsUpdated(!isCommentsUpdated)
+        setIsCommentEditMode(false)
+    }
+
+    const editCancelHandler = () => {
+        setCommentToAdd("")
+        setIsCommentEditMode(false)
     }
 
 
@@ -129,22 +145,32 @@ const Post = ({...post}) => {
                         <img className="likeIcon" src={`${PF}images.png`} alt="" onClick={likeHandler}/>
                         <span className="postLikeCounter">{likes}</span>
                     </div>
-                    <div className="postBottomRight">
-                        <span className="postCommentText">comments </span>
-                    </div>
+
                 </div>
                 <hr style={{margin: "8px 0px 8px 0px"}}/>
                 <div className="add-comment-container">
                     <div className="add-comment-input">
-                        <span className="add-comment-input-header">comment as @username</span>
-                        <input type="text" onChange={(e) => setCommentToAdd(e.target.value)} value={commentToAdd} placeholder="add comment" className="comment-"/>
+                        <textarea onChange={(e) => setCommentToAdd(e.target.value)} value={commentToAdd} placeholder="add comment..." className="comment-input"/>
                     </div>
-                    <button type="button" className="add-comment-button" onClick={addCommentHandler}>comment</button>
+                    <div className="add-comment-input-button-container">
+                        <button type="button" className="add-comment-button" onClick={!isCommentEditMode ? addCommentHandler : updateCommentHandler}>{isCommentEditMode ? "edit" : "comment"}</button>
+                        {
+                            isCommentEditMode && <Cancel className="comment-editMode-cancel-btn" style={{width: "20px"}} onClick={editCancelHandler}/>
+                        }
+                    </div>
                 </div>
                 <div className="comments-list">
-                    {
-                        comments.map((comment) => <PostComment key={comment._id} comment={comment}/>)
-                    }
+                    {comments.map((comment) => (
+                        <PostComment
+                            key={comment._id}
+                            comment={comment}
+                            updateComments={setIsCommentsUpdated}
+                            isCommentsUpdated={isCommentsUpdated}
+                            setCommentToEdit={setCommentToAdd}
+                            setEditMode={setIsCommentEditMode}
+                            setCommentIdToEdit={setCommentIdToEdit}
+                        />
+                    ))}
                 </div>
             </div>
         </div>

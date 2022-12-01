@@ -2,7 +2,7 @@ import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 
 import Share from "../share/Share.component"
-import Post from "../postCard/Post.component";
+import Post from "../post/Post.component";
 
 import "./Feed.styles.css"
 
