@@ -7,7 +7,7 @@ import "./PostComment.styles.css"
 
 
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
-const PostComment = ({comment, updateComments, isCommentsUpdated, setCommentToEdit, setEditMode, setCommentIdToEdit}) => {
+const PostComment = ({comment, updateComments, isCommentsUpdated, setCommentToEdit, setEditMode, setCommentIdToEdit, user}) => {
     const [author, setAuthor] = useState("")
     const [isDropdownOpened, setIsDropdownOpened] = useState(false)
 
@@ -55,9 +55,15 @@ const PostComment = ({comment, updateComments, isCommentsUpdated, setCommentToEd
             </div>
             {
                 isDropdownOpened && (
-                    <div className="comment-options-dropdown">
-                        <div onClick={editHandler}>Edit</div>
-                        <div onClick={deleteHandler}>Delete</div>
+                    <div className="comment-options-dropdown" style={{backgroundColor: (user._id !== author._id) ? "#d0cee0" : ""}}>
+                        {
+                            (user._id === author._id) && (
+                                <>
+                                    <div onClick={editHandler}>Edit</div>
+                                    <div onClick={deleteHandler}>Delete</div>
+                                </>
+                            )
+                        }
                         <div>Report</div>
                     </div>
                 )

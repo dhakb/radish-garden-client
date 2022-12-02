@@ -169,6 +169,7 @@ const Post = ({...post}) => {
                             setCommentToEdit={setCommentToAdd}
                             setEditMode={setIsCommentEditMode}
                             setCommentIdToEdit={setCommentIdToEdit}
+                            user={user}
                         />
                     ))}
                 </div>
