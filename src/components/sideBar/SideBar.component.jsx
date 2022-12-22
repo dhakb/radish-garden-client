@@ -28,7 +28,7 @@ const SideBar = () => {
         const getFollowings = async () => {
 
             try {
-                const response = await axios.get(`http://localhost:8080/api/users/${currentUser._id}/followings`)
+                const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/${currentUser._id}/followings`)
                 setFollowings(response.data)
             } catch (err) {
                 console.log(err)

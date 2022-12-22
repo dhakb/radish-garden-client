@@ -14,7 +14,7 @@ const PostComment = ({comment, updateComments, isCommentsUpdated, setCommentToEd
 
     useEffect(() => {
         const fetchAuthor = async () => {
-            const response = await axios.get(`http://localhost:8080/api/users/?userId=${comment.authorId}`)
+            const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/?userId=${comment.authorId}`)
             setAuthor(response.data)
         }
 
@@ -23,7 +23,7 @@ const PostComment = ({comment, updateComments, isCommentsUpdated, setCommentToEd
 
 
     const deleteHandler = async () => {
-        await axios.delete(`http://localhost:8080/api/comments/${comment._id}`)
+        await axios.delete(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/comments/${comment._id}`)
         setIsDropdownOpened(false)
         updateComments(!isCommentsUpdated)
         setCommentIdToEdit("")
@@ -32,7 +32,7 @@ const PostComment = ({comment, updateComments, isCommentsUpdated, setCommentToEd
     }
 
     const editHandler = async () => {
-        const response = await axios.get(`http://localhost:8080/api/comments/single/${comment._id}`)
+        const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/comments/single/${comment._id}`)
         setCommentToEdit(response.data.text)
         setCommentIdToEdit(response.data._id)
         setEditMode(true)
@@ -42,7 +42,7 @@ const PostComment = ({comment, updateComments, isCommentsUpdated, setCommentToEd
 
     return (
         <div className="comment">
-            <img  src={author.profilePicture ? `http://localhost:8080/api/upload/image/${author.profilePicture}` : PF + "avatar.png"} alt="" className="comments-user-avatar"/>
+            <img  src={author.profilePicture ? `https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/${author.profilePicture}` : PF + "avatar.png"} alt="" className="comments-user-avatar"/>
             <div className="comment-content">
                 <div className="comment-content-top">
                     <span className="comment-username">{author.username}</span>

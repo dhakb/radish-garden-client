@@ -20,7 +20,7 @@ const PasswordUpdateForm = ({onModalClose}) => {
         }
 
         try {
-            const {data: {message, response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {password: confirmPassword, userId: user._id})
+            const {data: {message, response}} = await axios.put(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/${user._id}`, {password: confirmPassword, userId: user._id})
             setNewPassword("")
             setConfirmPassword("")
             updateCurrentUser(response)

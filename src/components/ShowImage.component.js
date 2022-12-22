@@ -8,7 +8,7 @@ const ShowImage = () => {
         const fetchImage = async () => {
 
             try {
-               const response =  await axios.get("http://localhost:8080/api/upload/")
+               const response =  await axios.get("https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/")
                 setImage(response.data)
             } catch (err) {
                 console.log(err)
@@ -23,7 +23,7 @@ const ShowImage = () => {
     return (
         <div>
             Helloo image
-            <img src={'http://localhost:8080/api/upload/image/'+image.filename} alt=""/>
+            <img src={'https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/'+image.filename} alt=""/>
         </div>
     );
 };

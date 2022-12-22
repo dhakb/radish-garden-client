@@ -10,7 +10,7 @@ const Online = ({friend}) => {
 
     useEffect(() => {
         const getUserByUserId = async () => {
-           const response = await axios.get(`http://localhost:8080/api/users/?userId=${friend}`)
+           const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/?userId=${friend}`)
             setUser(response.data)
         }
         getUserByUserId()
@@ -19,7 +19,7 @@ const Online = ({friend}) => {
     return (
         <li className="rightbarFriend">
             <div className="rightbarProfileImgContainer">
-                <img className="rightbarProfileImg" src={user?.profilePicture ? `http://localhost:8080/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`} alt="" />
+                <img className="rightbarProfileImg" src={user?.profilePicture ? `https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`} alt="" />
                 <span className="rightbarOnline"></span>
             </div>
             <span className="rightbarUsername">{user.username}</span>

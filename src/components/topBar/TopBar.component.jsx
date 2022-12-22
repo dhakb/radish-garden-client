@@ -20,7 +20,7 @@ const TopBar = () => {
 
     useEffect(() => {
         const fetchUsersByfilter = async () => {
-            const response = await axios.get(`http://localhost:8080/api/users/filter/${searchInput}`)
+            const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/filter/${searchInput}`)
             setFilteredUsers(response.data)
         }
 
@@ -66,7 +66,7 @@ const TopBar = () => {
                     <div className="profile-info" onClick={() => navigate(`/profile/${user.username}`)}
                          onContextMenu={rightClickAvatarHandler}>
                         <img
-                            src={user.profilePicture ? `http://localhost:8080/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
+                            src={user.profilePicture ? `http://localhost:8888/.netlify/functions/index/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
                             alt=""
                             className="topBarImg"/>
                         <p className="profile-info-username">{user.username}</p>
@@ -81,5 +81,5 @@ const TopBar = () => {
         </div>
     );
 };
-
+// https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/
 export default TopBar;

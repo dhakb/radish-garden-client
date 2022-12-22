@@ -28,7 +28,7 @@ const Register = () => {
         } else {
 
             try {
-                await axios.post('http://localhost:8080/api/auth/register', {
+                await axios.post('https://radish-garden-api.netlify.app/.netlify/functions/index/api/auth/register', {
                     username,
                     email,
                     password: confirmPassword,

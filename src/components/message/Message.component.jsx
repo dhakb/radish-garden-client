@@ -11,7 +11,7 @@ function Message({own, message}) {
 
     useEffect(() => {
         const getUser = async () => {
-        const response = await axios.get(`http://localhost:8080/api/users/?userId=${message.sender}`)
+        const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/?userId=${message.sender}`)
         setUser(response.data)
         }
         getUser()
@@ -21,7 +21,7 @@ function Message({own, message}) {
         <div className={own ? "message own" : "message"}>
             <div className="messageTop">
                 <img className="messageImg"
-                     src={user?.profilePicture ? `http://localhost:8080/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
+                     src={user?.profilePicture ? `https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
                      alt=""/>
                 <p className="messageText">{message.text}</p>
             </div>

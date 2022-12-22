@@ -29,12 +29,12 @@ const Share = () => {
         try {
 
             if (image) {
-                const {data: {filename}} = await axios.post("http://localhost:8080/api/upload/", imageData)
+                const {data: {filename}} = await axios.post("https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/", imageData)
                 newPost = {...newPost, img: filename ? filename : ""}
             }
 
             try {
-                await axios.post("http://localhost:8080/api/posts", newPost)
+                await axios.post("https://radish-garden-api.netlify.app/.netlify/functions/index/api/posts", newPost)
             } catch (err) {
                 console.log(err)
             }
@@ -63,7 +63,7 @@ const Share = () => {
             <div className="shareWrapper">
                 <div className="shareTop">
                     <img className="shareProfileImg"
-                         src={user.profilePicture ? `http://localhost:8080/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`} alt=""/>
+                         src={user.profilePicture ? `https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`} alt=""/>
                     <input
                         placeholder={`What's on my mind?`}
                         className="shareInput"

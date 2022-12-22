@@ -9,7 +9,7 @@ const Following = ({following}) => {
               style={{textDecoration: "none", color: "inherit"}}>
             <div className="rightbarFollowing">
                 <img
-                    src={following.profilePicture ? `http://localhost:8080/api/upload/image/${following.profilePicture}` : `${PF}avatar.png`}
+                    src={following.profilePicture ? `https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/${following.profilePicture}` : `${PF}avatar.png`}
                     alt=""
                     className="rightbarFollowingImg"
                 />

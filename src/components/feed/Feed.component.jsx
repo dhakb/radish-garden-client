@@ -17,9 +17,9 @@ const Feed = ({username}) => {
         const fetchPosts = async () => {
             try {
                 const response = username
-                    ? await axios.get(`http://localhost:8080/api/posts/profile/${username}`)
+                    ? await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/posts/profile/${username}`)
                     : await axios.get(
-                        `http://localhost:8080/api/posts/timeline/${userId}`
+                        `https://radish-garden-api.netlify.app/.netlify/functions/index/api/posts/timeline/${userId}`
                     );
 
                 setPosts(response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));

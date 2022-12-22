@@ -49,7 +49,7 @@ function Messenger({onlineFriends}) {
     useEffect(() => {
         const getConversations = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/conversations/${currentUser._id}`)
+                const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/conversations/${currentUser._id}`)
                 setConversations(response.data)
             } catch (err) {
                 console.log(err)
@@ -63,7 +63,7 @@ function Messenger({onlineFriends}) {
     useEffect(() => {
         const getMessages = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/messages/${currentChat._id}`)
+                const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/messages/${currentChat._id}`)
                 setMessages(response.data)
             } catch (err) {
                 console.log(err)
@@ -114,7 +114,7 @@ function Messenger({onlineFriends}) {
 
         // Sent message to DB
         try {
-            const response = await axios.post("http://localhost:8080/api/messages/", messageToSend)
+            const response = await axios.post("https://radish-garden-api.netlify.app/.netlify/functions/index/api/messages/", messageToSend)
             setMessages([...messages, response.data])
             setNewMessage("")
         } catch (err) {

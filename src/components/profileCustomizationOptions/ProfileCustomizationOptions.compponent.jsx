@@ -22,8 +22,8 @@ const ProfileCustomizationOptions = () => {
         if (avatarImg) {
             const avatarImgData = new FormData()
             avatarImgData.append("file", avatarImg)
-            const {data: {filename}} = await axios.post("http://localhost:8080/api/upload/", avatarImgData)
-            const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {
+            const {data: {filename}} = await axios.post("https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/", avatarImgData)
+            const {data: {response}} = await axios.put(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/${user._id}`, {
                 userId: user._id,
                 profilePicture: filename
             })
@@ -34,8 +34,8 @@ const ProfileCustomizationOptions = () => {
         if (bannerImg) {
             const bannerImgData = new FormData()
             bannerImgData.append("file", bannerImg)
-            const {data: {filename}} = await axios.post("http://localhost:8080/api/upload/", bannerImgData)
-            const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {
+            const {data: {filename}} = await axios.post("https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/", bannerImgData)
+            const {data: {response}} = await axios.put(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/${user._id}`, {
                 userId: user._id,
                 coverPicture: filename
             })
@@ -46,7 +46,7 @@ const ProfileCustomizationOptions = () => {
 
 
     const dimensionUpdateHandler = async () => {
-        const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {
+        const {data: {response}} = await axios.put(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/${user._id}`, {
             userId: user._id,
             dimension: updatedDimension,
         })
@@ -55,7 +55,7 @@ const ProfileCustomizationOptions = () => {
     }
 
     const locationUpdateHandler = async () => {
-        const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {
+        const {data: {response}} = await axios.put(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/${user._id}`, {
             userId: user._id,
             location: updatedLocation,
         })
@@ -64,7 +64,7 @@ const ProfileCustomizationOptions = () => {
     }
 
     const descUpdateHandler = async () => {
-        const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {
+        const {data: {response}} = await axios.put(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/${user._id}`, {
             userId: user._id,
             desc: updatedDesc,
         })

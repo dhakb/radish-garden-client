@@ -20,7 +20,7 @@ const UserNameUpdateForm = ({onModalClose}) => {
             userId: user._id,
             username: updatedUsername
         }
-        const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {...updatedData})
+        const {data: {response}} = await axios.put(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/${user._id}`, {...updatedData})
         updateCurrentUser(response)
         onModalClose(false)
     }

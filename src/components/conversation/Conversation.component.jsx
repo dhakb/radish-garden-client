@@ -11,7 +11,7 @@ function Conversation({conversation, currentUser}) {
 
     useEffect(() => {
         const getUser = async () => {
-            const response = await axios.get(`http://localhost:8080/api/users/?userId=${conversation.members.find((id) => id !== currentUser._id)}`)
+            const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/?userId=${conversation.members.find((id) => id !== currentUser._id)}`)
             setUser(response.data)
         }
 
@@ -23,7 +23,7 @@ function Conversation({conversation, currentUser}) {
         <div className="conversation">
             <img
                 className="conversationImg"
-                src={user?.profilePicture ? `http://localhost:8080/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
+                src={user?.profilePicture ? `https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
                 alt=""
             />
             <span className="conversationName">{user?.username}</span>

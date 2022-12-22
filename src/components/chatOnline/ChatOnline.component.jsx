@@ -11,7 +11,7 @@ function ChatOnline({currentUserId, onlineUsers, setCurrentChat}) {
 
     useEffect(() => {
         const getFollowings = async () => {
-            const response = await axios.get(`http://localhost:8080/api/users/${currentUserId}/followings`)
+            const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/${currentUserId}/followings`)
             setFollowings(response.data)
         }
         getFollowings()
@@ -24,9 +24,9 @@ function ChatOnline({currentUserId, onlineUsers, setCurrentChat}) {
 
     const getConversationHandler = async (userId) => {
         try {
-        const response = await axios.get(`http://localhost:8080/api/conversations/${userId}/${currentUserId}`)
+        const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/conversations/${userId}/${currentUserId}`)
             if(!response.data) {
-                const newConversation = await axios.post(`http://localhost:8080/api/conversations`, {senderId: currentUserId, receiverId: userId})
+                const newConversation = await axios.post(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/conversations`, {senderId: currentUserId, receiverId: userId})
                 setCurrentChat(newConversation.data)
                 return;
             }
@@ -45,7 +45,7 @@ function ChatOnline({currentUserId, onlineUsers, setCurrentChat}) {
                     <div className="chatOnlineFriend" key={following._id} onClick={() => getConversationHandler(following._id)}>
                         <div className="chatOnlineImgContainer">
                             <img className="chatOnlineImg"
-                                 src={following?.profilePicture ? `http://localhost:8080/api/upload/image/${following.profilePicture}` : `${PF}avatar.png`} alt=""/>
+                                 src={following?.profilePicture ? `https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/${following.profilePicture}` : `${PF}avatar.png`} alt=""/>
                             <div className="chatOnlineBadge"></div>
                         </div>
                         <span className="chatOnlineName">{following?.username}</span>

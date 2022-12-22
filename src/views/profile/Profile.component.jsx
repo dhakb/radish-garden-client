@@ -17,7 +17,7 @@ const Profile = () => {
 
     useEffect(() => {
         async function fetchUser() {
-            const response = await axios.get(`http://localhost:8080/api/users/?username=${username}`)
+            const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/?username=${username}`)
             setUser(response.data);
         }
         fetchUser();
@@ -33,12 +33,12 @@ const Profile = () => {
                         <div className="profileCover">
                             <img
                                 className="profileCoverImg"
-                                src={user.coverPicture ? `http://localhost:8080/api/upload/image/${user.coverPicture}` : `${PF}banner.png`}
+                                src={user.coverPicture ? `https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/${user.coverPicture}` : `${PF}banner.png`}
                                 alt=""
                             />
                             <img
                                 className="profileUserImg"
-                                src={user.profilePicture ? `http://localhost:8080/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
+                                src={user.profilePicture ? `https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
                                 alt=""
                             />
                         </div>

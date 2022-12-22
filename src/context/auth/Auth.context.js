@@ -45,7 +45,7 @@ const AuthContextProvider = ({children}) => {
     const loginUserAsync = async (email, password) => {
         loginUserStart()
         try {
-            const response = await axios.post('http://localhost:8080/api/auth/login', {
+            const response = await axios.post('https://radish-garden-api.netlify.app/.netlify/functions/index/api/auth/login', {
                 email,
                 password,
             })

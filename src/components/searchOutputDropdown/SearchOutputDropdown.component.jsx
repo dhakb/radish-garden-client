@@ -17,7 +17,7 @@ const SearchOutputDropdown = ({users}) => {
                               style={{textDecoration: "none", color: "inherit"}}>
                             <img
                                 className="search-user-img"
-                                src={user.profilePicture ? `http://localhost:8080/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
+                                src={user.profilePicture ? `https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
                                 alt=""/>
                             <span className="search-user-username">{user.username}</span>
                         </Link>
