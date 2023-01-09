@@ -1,8 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
 import {useNavigate, Link} from "react-router-dom";
-
-import {AuthContext} from "../../context/auth/Auth.context";
-
+import axios from "axios";
 import {
     Bookmark,
     Chat,
@@ -10,12 +8,12 @@ import {
     PlayCircleFilledOutlined,
     RssFeed,
 } from "@mui/icons-material";
-
-import "./SideBar.styles.css"
 import CloseFriend from "../closeFriend/CloseFriend.component";
-import axios from "axios";
 
 
+import {AuthContext} from "../../context/auth/Auth.context";
+import {API_BASE_URL} from "../../constants";
+import "./SideBar.styles.css"
 
 
 const SideBar = () => {
@@ -28,7 +26,7 @@ const SideBar = () => {
         const getFollowings = async () => {
 
             try {
-                const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/${currentUser._id}/followings`)
+                const response = await axios.get(`${API_BASE_URL}/api/users/${currentUser._id}/followings`)
                 setFollowings(response.data)
             } catch (err) {
                 console.log(err)
@@ -50,14 +48,6 @@ const SideBar = () => {
                         <Chat className="sidebarIcon"/>
                         <span className="sidebarListItemText">Chats</span>
                     </Link>
-                    {/*<li className="sidebarListItem">*/}
-                    {/*    <PlayCircleFilledOutlined className="sidebarIcon"/>*/}
-                    {/*    <span className="sidebarListItemText">Videos</span>*/}
-                    {/*</li>*/}
-                    {/*<li className="sidebarListItem">*/}
-                    {/*    <Bookmark className="sidebarIcon"/>*/}
-                    {/*    <span className="sidebarListItemText">Bookmarks</span>*/}
-                    {/*</li>*/}
                     <li className="sidebarListItem">
                         <HelpOutline className="sidebarIcon"/>
                         <span className="sidebarListItemText">Questions</span>

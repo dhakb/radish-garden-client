@@ -26,7 +26,6 @@ function App() {
     useEffect(() => {
         socket.emit("addUser", user?._id)
         socket.on("getUsers", onlineUsers => {
-            // console.log(onlineUsers)
             setOnlineUsers(user?.followings?.filter(following => onlineUsers?.some(user => user.userId === following)))
         })
     }, [user])

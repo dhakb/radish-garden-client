@@ -1,13 +1,14 @@
 import {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import {Chat, Notifications, Search} from "@mui/icons-material";
+import axios from "axios";
 
 import ProfileDropdown from "../accountDropdown/ProfileDropdown.component";
 import SearchOutputDropdown from "../searchOutputDropdown/SearchOutputDropdown.component";
 
-import {AuthContext} from "../../context/auth/Auth.context";
 import "./TopBar.styles.css"
-import axios from "axios";
+import {AuthContext} from "../../context/auth/Auth.context";
+import {API_BASE_URL} from "../../constants";
 
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
@@ -20,7 +21,7 @@ const TopBar = () => {
 
     useEffect(() => {
         const fetchUsersByfilter = async () => {
-            const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/filter/${searchInput}`)
+            const response = await axios.get(`${API_BASE_URL}/api/users/filter/${searchInput}`)
             setFilteredUsers(response.data)
         }
 
@@ -66,7 +67,7 @@ const TopBar = () => {
                     <div className="profile-info" onClick={() => navigate(`/profile/${user.username}`)}
                          onContextMenu={rightClickAvatarHandler}>
                         <img
-                            src={user.profilePicture ? `http://localhost:8888/.netlify/functions/index/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
+                            src={user.profilePicture ? `${API_BASE_URL}/api/upload/${user.profilePicture}` : `${PF}avatar.png`}
                             alt=""
                             className="topBarImg"/>
                         <p className="profile-info-username">{user.username}</p>
@@ -81,5 +82,5 @@ const TopBar = () => {
         </div>
     );
 };
-// https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/
+
 export default TopBar;

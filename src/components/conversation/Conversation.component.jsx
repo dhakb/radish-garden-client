@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../constants";
 import "./Conversation.styles.css"
 
 const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -11,7 +12,7 @@ function Conversation({conversation, currentUser}) {
 
     useEffect(() => {
         const getUser = async () => {
-            const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/?userId=${conversation.members.find((id) => id !== currentUser._id)}`)
+            const response = await axios.get(`${API_BASE_URL}/api/users/?userId=${conversation.members.find((id) => id !== currentUser._id)}`)
             setUser(response.data)
         }
 
@@ -23,7 +24,7 @@ function Conversation({conversation, currentUser}) {
         <div className="conversation">
             <img
                 className="conversationImg"
-                src={user?.profilePicture ? `https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
+                src={user?.profilePicture ? `${API_BASE_URL}/api/upload/${user.profilePicture}` : `${PF}avatar.png`}
                 alt=""
             />
             <span className="conversationName">{user?.username}</span>

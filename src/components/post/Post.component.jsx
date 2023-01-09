@@ -8,6 +8,7 @@ import {AuthContext} from "../../context/auth/Auth.context";
 import PostComment from "../postComment/PostComment.component";
 import "./Post.styles.css"
 
+import {API_BASE_URL} from "../../constants";
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
 const Post = ({...post}) => {
@@ -30,7 +31,7 @@ const Post = ({...post}) => {
 
     useEffect(() => {
         async function fetchUser() {
-            const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/?userId=${post.userId}`)
+            const response = await axios.get(`${API_BASE_URL}/api/users/?userId=${post.userId}`)
             setPostAuthor(response.data)
         }
         fetchUser()
@@ -39,7 +40,7 @@ const Post = ({...post}) => {
 
     useEffect(() => {
         const fetchComments = async () => {
-            const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/comments/${post._id}`)
+            const response = await axios.get(`${API_BASE_URL}/api/comments/${post._id}`)
             setComments(response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)))
         }
 
@@ -49,7 +50,7 @@ const Post = ({...post}) => {
 
     const likeHandler = () => {
         try {
-            axios.put(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/posts/${post._id}/like`, {userId: user._id})
+            axios.put(`${API_BASE_URL}/api/posts/${post._id}/like`, {userId: user._id})
         } catch (err) {
             console.log(err)
         }
@@ -64,24 +65,24 @@ const Post = ({...post}) => {
     }
 
     const postDeleteHandler = async () => {
-        await axios.delete(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/posts/${post._id}`, {data: {userId: user._id}})
+        await axios.delete(`${API_BASE_URL}/api/posts/${post._id}`, {data: {userId: user._id}})
         setIsOptsOpened(false)
         window.location.reload()
     }
 
     const postEditHandler = async () => {
-        // await axios.put(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/posts/${post._id}`)
+        // await axios.put(`${API_BASE_URL}api/posts/${post._id}`)
         setIsOptsOpened(false)
     }
 
     const addCommentHandler = async () => {
-        commentToAdd && await axios.post("https://radish-garden-api.netlify.app/.netlify/functions/index/api/comments/", {text: commentToAdd, authorId: user._id, postId: post._id})
+        commentToAdd && await axios.post(`${API_BASE_URL}/api/comments/`, {text: commentToAdd, authorId: user._id, postId: post._id})
         setCommentToAdd("")
         setIsCommentsUpdated(!isCommentsUpdated)
     }
 
     const updateCommentHandler = async () => {
-        (commentToAdd && isCommentEditMode) && await axios.put(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/comments/${commentIdToEdit}`, {text: commentToAdd})
+        (commentToAdd && isCommentEditMode) && await axios.put(`${API_BASE_URL}/api/comments/${commentIdToEdit}`, {text: commentToAdd})
         setCommentToAdd("")
         setIsCommentsUpdated(!isCommentsUpdated)
         setIsCommentEditMode(false)
@@ -101,7 +102,7 @@ const Post = ({...post}) => {
                           style={{textDecoration: "none", color: "inherit"}}>
                         <img
                             className="postProfileImg"
-                            src={postAuthor.profilePicture ? `https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/${postAuthor.profilePicture}` : PF + "avatar.png"}
+                            src={postAuthor.profilePicture ? `${API_BASE_URL}/api/upload/${postAuthor.profilePicture}` : PF + "avatar.png"}
                             alt=""
                         />
                         <span className="postUsername">
@@ -136,7 +137,7 @@ const Post = ({...post}) => {
                     <span className="postText">{post.desc}</span>
                     {
                         post.img &&
-                        <img className="postImg" src={`https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/${post.img}`}
+                        <img className="postImg" src={`${API_BASE_URL}/api/upload/${post.img}`}
                              alt=""/>
                     }
                 </div>

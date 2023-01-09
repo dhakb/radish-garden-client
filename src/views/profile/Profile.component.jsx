@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
+import axios from "axios";
 
 import SideBar from "../../components/sideBar/SideBar.component";
 import TopBar from "../../components/topBar/TopBar.component"
@@ -7,7 +8,7 @@ import Feed from "../../components/feed/Feed.component"
 import RightBar from "../../components/rightBar/RightBar.component";
 
 import "./Profile.styles.css"
-import axios from "axios";
+import {API_BASE_URL} from "../../constants";
 
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
@@ -17,11 +18,12 @@ const Profile = () => {
 
     useEffect(() => {
         async function fetchUser() {
-            const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/?username=${username}`)
+            const response = await axios.get(`${API_BASE_URL}/api/users/?username=${username}`)
             setUser(response.data);
         }
         fetchUser();
     }, [username]);
+
 
     return (
         <>
@@ -33,12 +35,12 @@ const Profile = () => {
                         <div className="profileCover">
                             <img
                                 className="profileCoverImg"
-                                src={user.coverPicture ? `https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/${user.coverPicture}` : `${PF}banner.png`}
+                                src={user.coverPicture ? `${API_BASE_URL}/api/upload/${user.coverPicture}` : `${PF}banner.png`}
                                 alt=""
                             />
                             <img
                                 className="profileUserImg"
-                                src={user.profilePicture ? `https://radish-garden-api.netlify.app/.netlify/functions/index/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`}
+                                src={user.profilePicture ? `${API_BASE_URL}/api/upload/${user.profilePicture}` : `${PF}avatar.png`}
                                 alt=""
                             />
                         </div>

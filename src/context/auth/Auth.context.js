@@ -2,6 +2,7 @@ import {createContext, useEffect, useReducer} from "react";
 import axios from "axios"
 import {authReducer} from "./Auth.reducers";
 import {AUTH_ACTION_TYPES} from "./Auth.actions";
+import {API_BASE_URL} from "../../constants";
 
 const CONTEXT_INITIAL_STATE = {
     user: null,
@@ -45,10 +46,11 @@ const AuthContextProvider = ({children}) => {
     const loginUserAsync = async (email, password) => {
         loginUserStart()
         try {
-            const response = await axios.post('https://radish-garden-api.netlify.app/.netlify/functions/index/api/auth/login', {
+            const response = await axios.post(`${API_BASE_URL}/api/auth/login`, {
                 email,
                 password,
             })
+            console.log("auth:", response.data)
             loginUserSuccess(response.data)
         } catch (err) {
             console.log(err)
@@ -57,8 +59,10 @@ const AuthContextProvider = ({children}) => {
     }
 
     const updateCurrentUser = (updatedUser) => {
+        console.log("from updater", updatedUser)
         dispatch({type: AUTH_ACTION_TYPES.UPDATE_USER, payload: updatedUser})
     }
+
 
     const value = {
         user,

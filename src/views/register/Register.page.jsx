@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
 import "./Register.styles.css"
+import {API_BASE_URL, SOCKET_SERVER} from "../../constants";
 
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
@@ -28,7 +29,7 @@ const Register = () => {
         } else {
 
             try {
-                await axios.post('https://radish-garden-api.netlify.app/.netlify/functions/index/api/auth/register', {
+                await axios.post(`${API_BASE_URL}/api/auth/register`, {
                     username,
                     email,
                     password: confirmPassword,

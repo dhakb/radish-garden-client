@@ -6,6 +6,7 @@ import Online from "../online/Online.component";
 import Following from "../rightBarFollowing/Following.component";
 import {AuthContext} from "../../context/auth/Auth.context";
 
+import {API_BASE_URL} from "../../constants";
 import "./RightBar.styles.css"
 
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
@@ -20,7 +21,7 @@ const RightBar = ({profile, onlineFriends}) => {
     useEffect(() => {
         const fetchFollowings = async () => {
             try {
-                const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/${profile?._id}/followings`)
+                const response = await axios.get(`${API_BASE_URL}/api/users/${profile?._id}/followings`)
                 setFollowings(response.data)
             } catch (err) {
                 console.log(err)
@@ -39,10 +40,10 @@ const RightBar = ({profile, onlineFriends}) => {
     const followHandler = async () => {
         try {
             if (isFollowing) {
-                const response = await axios.put(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/${profile._id}/unfollow`, {userId: currentUser._id})
+                const response = await axios.put(`${API_BASE_URL}/api/users/${profile._id}/unfollow`, {userId: currentUser._id})
                 updateCurrentUser(response.data.updatedUser)
             } else {
-                const response = await axios.put(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/users/${profile._id}/follow`, {userId: currentUser._id})
+                const response = await axios.put(`${API_BASE_URL}/api/users/${profile._id}/follow`, {userId: currentUser._id})
                 updateCurrentUser(response.data.updatedUser)
             }
         } catch (err) {
@@ -54,11 +55,11 @@ const RightBar = ({profile, onlineFriends}) => {
 
     const sendMessageHandler = async () => {
         // Get a conversation by member id
-        const response = await axios.get(`https://radish-garden-api.netlify.app/.netlify/functions/index/api/conversations/${currentUser._id}/${profile._id}`)
+        const response = await axios.get(`${API_BASE_URL}/api/conversations/${currentUser._id}/${profile._id}`)
 
         // if no conversation between two users create new
         if (!response.data) {
-            const response = await axios.post("https://radish-garden-api.netlify.app/.netlify/functions/index/api/conversations", {
+            const response = await axios.post(`${API_BASE_URL}/api/conversations`, {
                 senderId: currentUser._id,
                 receiverId: profile._id
             })
