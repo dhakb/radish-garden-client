@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../constants";
 import "./Online.styles.css"
 
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
@@ -10,7 +11,7 @@ const Online = ({friend}) => {
 
     useEffect(() => {
         const getUserByUserId = async () => {
-           const response = await axios.get(`http://localhost:8080/api/users/?userId=${friend}`)
+           const response = await axios.get(`${API_BASE_URL}api/users/?userId=${friend}`)
             setUser(response.data)
         }
         getUserByUserId()
@@ -19,7 +20,7 @@ const Online = ({friend}) => {
     return (
         <li className="rightbarFriend">
             <div className="rightbarProfileImgContainer">
-                <img className="rightbarProfileImg" src={user?.profilePicture ? `http://localhost:8080/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`} alt="" />
+                <img className="rightbarProfileImg" src={user?.profilePicture ? `${API_BASE_URL}/api/upload/${user.profilePicture}` : `${PF}avatar.png`} alt="" />
                 <span className="rightbarOnline"></span>
             </div>
             <span className="rightbarUsername">{user.username}</span>

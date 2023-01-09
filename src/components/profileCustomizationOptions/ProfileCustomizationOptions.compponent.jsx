@@ -3,6 +3,7 @@ import {Cancel} from "@mui/icons-material"
 import axios from "axios";
 
 import {AuthContext} from "../../context/auth/Auth.context";
+import {API_BASE_URL} from "../../constants";
 
 import "./ProfileCustomizationOptions.styles.css"
 
@@ -22,20 +23,19 @@ const ProfileCustomizationOptions = () => {
         if (avatarImg) {
             const avatarImgData = new FormData()
             avatarImgData.append("file", avatarImg)
-            const {data: {filename}} = await axios.post("http://localhost:8080/api/upload/", avatarImgData)
-            const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {
+            const {data: {path, filename}} = await axios.post(`${API_BASE_URL}/api/upload`, avatarImgData)
+            const {data: {response}} = await axios.put(`${API_BASE_URL}/api/users/${user._id}`, {
                 userId: user._id,
                 profilePicture: filename
             })
-
             updateCurrentUser(response)
         }
 
         if (bannerImg) {
             const bannerImgData = new FormData()
             bannerImgData.append("file", bannerImg)
-            const {data: {filename}} = await axios.post("http://localhost:8080/api/upload/", bannerImgData)
-            const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {
+            const {data: {filename, path}} = await axios.post(`${API_BASE_URL}/api/upload`, bannerImgData)
+            const {data: {response}} = await axios.put(`${API_BASE_URL}/api/users/${user._id}`, {
                 userId: user._id,
                 coverPicture: filename
             })
@@ -46,7 +46,7 @@ const ProfileCustomizationOptions = () => {
 
 
     const dimensionUpdateHandler = async () => {
-        const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {
+        const {data: {response}} = await axios.put(`${API_BASE_URL}/api/users/${user._id}`, {
             userId: user._id,
             dimension: updatedDimension,
         })
@@ -55,7 +55,7 @@ const ProfileCustomizationOptions = () => {
     }
 
     const locationUpdateHandler = async () => {
-        const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {
+        const {data: {response}} = await axios.put(`${API_BASE_URL}/api/users/${user._id}`, {
             userId: user._id,
             location: updatedLocation,
         })
@@ -64,7 +64,7 @@ const ProfileCustomizationOptions = () => {
     }
 
     const descUpdateHandler = async () => {
-        const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {
+        const {data: {response}} = await axios.put(`${API_BASE_URL}/api/users/${user._id}`, {
             userId: user._id,
             desc: updatedDesc,
         })

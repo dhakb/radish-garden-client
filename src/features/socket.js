@@ -1,6 +1,7 @@
 import {io} from "socket.io-client"
+import {SOCKET_SERVER} from "../constants";
 
-const socket = io("ws://localhost:8900", {autoConnect: false})
+const socket = io(SOCKET_SERVER, {autoConnect: false})
 
 
 export default socket

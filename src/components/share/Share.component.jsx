@@ -2,9 +2,9 @@ import {useContext, useEffect, useRef, useState} from "react";
 import axios from "axios"
 import {Cancel, PermMedia} from "@mui/icons-material"
 
-import "./Share.styles.css"
-
+import {API_BASE_URL} from "../../constants";
 import {AuthContext} from "../../context/auth/Auth.context";
+import "./Share.styles.css"
 
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
@@ -29,12 +29,12 @@ const Share = () => {
         try {
 
             if (image) {
-                const {data: {filename}} = await axios.post("http://localhost:8080/api/upload/", imageData)
+                const {data: {filename}} = await axios.post(`${API_BASE_URL}/api/upload/`, imageData)
                 newPost = {...newPost, img: filename ? filename : ""}
             }
 
             try {
-                await axios.post("http://localhost:8080/api/posts", newPost)
+                await axios.post(`${API_BASE_URL}/api/posts`, newPost)
             } catch (err) {
                 console.log(err)
             }
@@ -63,7 +63,7 @@ const Share = () => {
             <div className="shareWrapper">
                 <div className="shareTop">
                     <img className="shareProfileImg"
-                         src={user.profilePicture ? `http://localhost:8080/api/upload/image/${user.profilePicture}` : `${PF}avatar.png`} alt=""/>
+                         src={user.profilePicture ? `${API_BASE_URL}/api/upload/${user.profilePicture}` : `${PF}avatar.png`} alt=""/>
                     <input
                         placeholder={`What's on my mind?`}
                         className="shareInput"

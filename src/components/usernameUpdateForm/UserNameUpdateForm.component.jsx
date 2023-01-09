@@ -1,8 +1,8 @@
-import axios from "axios";
 import {useContext, useState} from "react";
+import axios from "axios";
 
 import {AuthContext} from "../../context/auth/Auth.context";
-
+import {API_BASE_URL} from "../../constants";
 import "./UsernameUpdateForm.styles.css"
 
 const UserNameUpdateForm = ({onModalClose}) => {
@@ -20,7 +20,7 @@ const UserNameUpdateForm = ({onModalClose}) => {
             userId: user._id,
             username: updatedUsername
         }
-        const {data: {response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {...updatedData})
+        const {data: {response}} = await axios.put(`${API_BASE_URL}/api/users/${user._id}`, {...updatedData})
         updateCurrentUser(response)
         onModalClose(false)
     }

@@ -3,6 +3,7 @@ import axios from "axios";
 
 import {AuthContext} from "../../context/auth/Auth.context";
 
+import {API_BASE_URL} from "../../constants";
 import "./PasswordUpdateForm.styles.css"
 
 const PasswordUpdateForm = ({onModalClose}) => {
@@ -20,7 +21,7 @@ const PasswordUpdateForm = ({onModalClose}) => {
         }
 
         try {
-            const {data: {message, response}} = await axios.put(`http://localhost:8080/api/users/${user._id}`, {password: confirmPassword, userId: user._id})
+            const {data: {message, response}} = await axios.put(`${API_BASE_URL}/api/users/${user._id}`, {password: confirmPassword, userId: user._id})
             setNewPassword("")
             setConfirmPassword("")
             updateCurrentUser(response)

@@ -1,4 +1,6 @@
 import {Link} from "react-router-dom"
+
+import {API_BASE_URL} from "../../constants";
 import "./Following.styles.css"
 
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
@@ -9,7 +11,7 @@ const Following = ({following}) => {
               style={{textDecoration: "none", color: "inherit"}}>
             <div className="rightbarFollowing">
                 <img
-                    src={following.profilePicture ? `http://localhost:8080/api/upload/image/${following.profilePicture}` : `${PF}avatar.png`}
+                    src={following.profilePicture ? `${API_BASE_URL}/api/upload/${following.profilePicture}` : `${PF}avatar.png`}
                     alt=""
                     className="rightbarFollowingImg"
                 />

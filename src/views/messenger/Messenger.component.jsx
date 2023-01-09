@@ -1,6 +1,6 @@
 import {useContext, useEffect, useRef, useState} from "react";
 import axios from "axios";
-// import {io} from "socket.io-client"
+
 
 import {AuthContext} from "../../context/auth/Auth.context";
 import socket from "../../features/socket";
@@ -11,6 +11,9 @@ import ChatOnline from "../../components/chatOnline/ChatOnline.component";
 import Message from "../../components/message/Message.component";
 
 import "./Messenger.styles.css"
+import {API_BASE_URL} from "../../constants";
+
+
 
 function Messenger({onlineFriends}) {
     const {user: currentUser} = useContext(AuthContext)
@@ -49,7 +52,7 @@ function Messenger({onlineFriends}) {
     useEffect(() => {
         const getConversations = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/conversations/${currentUser._id}`)
+                const response = await axios.get(`${API_BASE_URL}/api/conversations/${currentUser._id}`)
                 setConversations(response.data)
             } catch (err) {
                 console.log(err)
@@ -63,7 +66,7 @@ function Messenger({onlineFriends}) {
     useEffect(() => {
         const getMessages = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/messages/${currentChat._id}`)
+                const response = await axios.get(`${API_BASE_URL}/api/messages/${currentChat._id}`)
                 setMessages(response.data)
             } catch (err) {
                 console.log(err)
@@ -114,7 +117,7 @@ function Messenger({onlineFriends}) {
 
         // Sent message to DB
         try {
-            const response = await axios.post("http://localhost:8080/api/messages/", messageToSend)
+            const response = await axios.post(`${API_BASE_URL}/api/messages/`, messageToSend)
             setMessages([...messages, response.data])
             setNewMessage("")
         } catch (err) {

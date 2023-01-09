@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 
+import {API_BASE_URL} from "../constants";
 const ShowImage = () => {
     const [image, setImage] = useState("")
 
@@ -8,7 +9,7 @@ const ShowImage = () => {
         const fetchImage = async () => {
 
             try {
-               const response =  await axios.get("http://localhost:8080/api/upload/")
+               const response =  await axios.get(`${API_BASE_URL}/api/upload/`)
                 setImage(response.data)
             } catch (err) {
                 console.log(err)
@@ -23,7 +24,7 @@ const ShowImage = () => {
     return (
         <div>
             Helloo image
-            <img src={'http://localhost:8080/api/upload/image/'+image.filename} alt=""/>
+            <img src={`${API_BASE_URL}/api/upload/`+image.filename} alt=""/>
         </div>
     );
 };
