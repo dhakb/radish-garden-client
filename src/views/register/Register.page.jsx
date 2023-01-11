@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
 import "./Register.styles.css"
-import {API_BASE_URL, SOCKET_SERVER} from "../../constants";
+import {API_BASE_URL} from "../../constants";
 
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
 

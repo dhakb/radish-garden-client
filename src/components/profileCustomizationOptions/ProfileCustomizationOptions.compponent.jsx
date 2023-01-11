@@ -23,7 +23,7 @@ const ProfileCustomizationOptions = () => {
         if (avatarImg) {
             const avatarImgData = new FormData()
             avatarImgData.append("file", avatarImg)
-            const {data: {path, filename}} = await axios.post(`${API_BASE_URL}/api/upload`, avatarImgData)
+            const {data: {filename}} = await axios.post(`${API_BASE_URL}/api/upload`, avatarImgData)
             const {data: {response}} = await axios.put(`${API_BASE_URL}/api/users/${user._id}`, {
                 userId: user._id,
                 profilePicture: filename
@@ -34,7 +34,7 @@ const ProfileCustomizationOptions = () => {
         if (bannerImg) {
             const bannerImgData = new FormData()
             bannerImgData.append("file", bannerImg)
-            const {data: {filename, path}} = await axios.post(`${API_BASE_URL}/api/upload`, bannerImgData)
+            const {data: {filename}} = await axios.post(`${API_BASE_URL}/api/upload`, bannerImgData)
             const {data: {response}} = await axios.put(`${API_BASE_URL}/api/users/${user._id}`, {
                 userId: user._id,
                 coverPicture: filename

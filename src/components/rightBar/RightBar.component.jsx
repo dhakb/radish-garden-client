@@ -9,7 +9,7 @@ import {AuthContext} from "../../context/auth/Auth.context";
 import {API_BASE_URL} from "../../constants";
 import "./RightBar.styles.css"
 
-const PF = process.env.REACT_APP_PUBLIC_FOLDER
+
 
 const RightBar = ({profile, onlineFriends}) => {
     const {user: currentUser, updateCurrentUser} = useContext(AuthContext)

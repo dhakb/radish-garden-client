@@ -45,7 +45,7 @@ function Messenger({onlineFriends}) {
     // Update messages according to newly arrived message
     useEffect(() => {
         arrivedMessage && arrivedMessage?.conversationId === currentChat?._id && setMessages((prevState) => [...prevState, arrivedMessage])
-    }, [arrivedMessage])
+    }, [arrivedMessage, currentChat._id])
 
 
     // Get Conversations from DB

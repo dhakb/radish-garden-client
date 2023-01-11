@@ -26,7 +26,7 @@ const Post = ({...post}) => {
 
     useEffect(() => {
         setIsLiked(post.likes.includes(user._id))
-    }, [user._id])
+    }, [user._id, post.likes])
 
 
     useEffect(() => {

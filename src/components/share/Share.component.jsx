@@ -1,4 +1,4 @@
-import {useContext, useEffect, useRef, useState} from "react";
+import {useContext, useRef, useState} from "react";
 import axios from "axios"
 import {Cancel, PermMedia} from "@mui/icons-material"
 
@@ -74,7 +74,7 @@ const Share = () => {
                 {
                     imageURL && (
                         <div className="shareImgContainer">
-                            <img src={imageURL} className="shareImg" alt="shared image"/>
+                            <img src={imageURL} className="shareImg" alt="to  upload"/>
                             <Cancel className="shareCancelButton" onClick={() => {setImageURL(""); setImage(null)}}/>
                         </div>
                     )

@@ -2,10 +2,8 @@ import {useContext, useEffect, useState} from 'react';
 import {useNavigate, Link} from "react-router-dom";
 import axios from "axios";
 import {
-    Bookmark,
     Chat,
     HelpOutline,
-    PlayCircleFilledOutlined,
     RssFeed,
 } from "@mui/icons-material";
 import CloseFriend from "../closeFriend/CloseFriend.component";
