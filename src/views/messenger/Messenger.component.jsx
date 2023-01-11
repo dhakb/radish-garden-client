@@ -58,7 +58,7 @@ function Messenger({onlineFriends}) {
                 console.log(err)
             }
         }
-        getConversations()
+        getConversations().catch(console.error)
     }, [currentUser._id])
 
 
@@ -72,7 +72,7 @@ function Messenger({onlineFriends}) {
                 console.log(err)
             }
         }
-        currentChat && getMessages()
+        currentChat && getMessages().catch(console.error)
     }, [currentChat])
 
 
@@ -82,26 +82,6 @@ function Messenger({onlineFriends}) {
     }, [messages])
 
 
-
-    useEffect(() => {
-        const listener = (event) => {
-            if (event.key === "Enter") {
-                console.log(event.key)
-                sendMessageHandler()
-            }
-        };
-
-        if (textAreaRef.current) {
-            textAreaRef.current?.addEventListener("keydown", listener);
-        }
-
-        return () => {
-            if (textAreaRef.current) {
-                textAreaRef.current?.removeEventListener("keydown", listener);
-            }
-        };
-
-    }, [textAreaRef.current]);
 
     const sendMessageHandler = async () => {
 
@@ -122,6 +102,12 @@ function Messenger({onlineFriends}) {
             setNewMessage("")
         } catch (err) {
             console.log(err)
+        }
+    }
+
+    const onMessageKeyDown =  (e) => {
+        if(e.key === "Enter") {
+            sendMessageHandler().catch(console.error)
         }
     }
 
@@ -161,7 +147,7 @@ function Messenger({onlineFriends}) {
                                 <div className="chatBoxBottom">
                                     <textarea className="chatMessageInput" placeholder="Say something..."
                                               onChange={(e) => setNewMessage(e.target.value)}
-                                              value={newMessage} ref={textAreaRef}></textarea>
+                                              value={newMessage} ref={textAreaRef} onKeyDown={onMessageKeyDown}></textarea>
                                     <button className="chatSubmitButton" onClick={sendMessageHandler}>Send</button>
                                 </div>
                             </div>)
@@ -176,7 +162,6 @@ function Messenger({onlineFriends}) {
                         <ChatOnline currentUserId={currentUser._id} onlineUsers={onlineUsers} setCurrentChat={setCurrentChat} />
                     </div>
                 </div>
-
             </div>
         </>
     )
