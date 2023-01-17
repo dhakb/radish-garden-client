@@ -8,8 +8,8 @@
     height: 230px;
     border-radius: 15px;
     background-color: rgba(211, 211, 211, 0.76);
-    top: 55px;
-    right: 0;
+    top: 50px;
+    right: -5px;
     box-shadow: #111111;
     overflow: hidden;
 }

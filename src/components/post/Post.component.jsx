@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
-import {MoreVert, Cancel} from "@mui/icons-material"
+import {Cancel, MoreVert} from "@mui/icons-material"
 import {format} from "timeago.js";
 
 import {AuthContext} from "../../context/auth/Auth.context";
@@ -9,6 +9,7 @@ import PostComment from "../postComment/PostComment.component";
 import "./Post.styles.css"
 
 import {API_BASE_URL} from "../../constants";
+
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
 const Post = ({...post}) => {
@@ -34,6 +35,7 @@ const Post = ({...post}) => {
             const response = await axios.get(`${API_BASE_URL}/api/users/?userId=${post.userId}`)
             setPostAuthor(response.data)
         }
+
         fetchUser()
     }, [post.userId])
 
@@ -76,7 +78,11 @@ const Post = ({...post}) => {
     }
 
     const addCommentHandler = async () => {
-        commentToAdd && await axios.post(`${API_BASE_URL}/api/comments/`, {text: commentToAdd, authorId: user._id, postId: post._id})
+        commentToAdd && await axios.post(`${API_BASE_URL}/api/comments/`, {
+            text: commentToAdd,
+            authorId: user._id,
+            postId: post._id
+        })
         setCommentToAdd("")
         setIsCommentsUpdated(!isCommentsUpdated)
     }
@@ -91,6 +97,16 @@ const Post = ({...post}) => {
     const editCancelHandler = () => {
         setCommentToAdd("")
         setIsCommentEditMode(false)
+    }
+
+    const onCommentKeyDown = async (e) => {
+        if (e.key === "Enter") {
+            if (isCommentEditMode) {
+                await updateCommentHandler()
+            } else {
+                await addCommentHandler()
+            }
+        }
     }
 
 
@@ -129,7 +145,6 @@ const Post = ({...post}) => {
                                     </div>
                                 )
                             }
-
                         </div>
                     </div>
                 </div>
@@ -151,12 +166,15 @@ const Post = ({...post}) => {
                 <hr style={{margin: "8px 0px 8px 0px"}}/>
                 <div className="add-comment-container">
                     <div className="add-comment-input">
-                        <textarea onChange={(e) => setCommentToAdd(e.target.value)} value={commentToAdd} placeholder="add comment..." className="comment-input"/>
+                        <textarea onChange={(e) => setCommentToAdd(e.target.value)} value={commentToAdd}
+                                  placeholder="add comment..." className="comment-input" onKeyDown={onCommentKeyDown}/>
                     </div>
                     <div className="add-comment-input-button-container">
-                        <button type="button" className="add-comment-button" onClick={!isCommentEditMode ? addCommentHandler : updateCommentHandler}>{isCommentEditMode ? "edit" : "comment"}</button>
+                        <button type="button" className="add-comment-button"
+                                onClick={!isCommentEditMode ? addCommentHandler : updateCommentHandler}>{isCommentEditMode ? "edit" : "comment"}</button>
                         {
-                            isCommentEditMode && <Cancel className="comment-editMode-cancel-btn" style={{width: "20px"}} onClick={editCancelHandler}/>
+                            isCommentEditMode && <Cancel className="comment-editMode-cancel-btn" style={{width: "20px"}}
+                                                         onClick={editCancelHandler}/>
                         }
                     </div>
                 </div>

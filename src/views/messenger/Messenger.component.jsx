@@ -114,9 +114,7 @@ function Messenger({onlineFriends}) {
     return (
         <>
             <TopBar/>
-
             <div className="messenger">
-
                 <div className="chatMenu">
                     <div className="chatMenuWrapper">
                         <input placeholder="Search for friends" className="chatMenuInput"/>
@@ -153,7 +151,6 @@ function Messenger({onlineFriends}) {
                             </div>)
                             : <span className="noConversationText">Open a chat</span>
                     }
-
                 </div>
                 <hr style={{height: "calc(100vh - 70px)", color: "purple"}}/>
                 <div className="chatOnline">

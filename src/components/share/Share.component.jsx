@@ -58,6 +58,12 @@ const Share = () => {
         setImageURL(URL.createObjectURL(e.target.files[0]))
     }
 
+    const onSharePostKeyDown = async (e) => {
+        if(e.key === "Enter") {
+            await submitPostHandler(e)
+        }
+    }
+
     return (
         <div className="share">
             <div className="shareWrapper">
@@ -68,6 +74,7 @@ const Share = () => {
                         placeholder={`What's on my mind?`}
                         className="shareInput"
                         ref={postInputRef}
+                        onKeyDown={onSharePostKeyDown}
                     />
                 </div>
                 <hr className="shareHr"/>
@@ -82,14 +89,15 @@ const Share = () => {
                 <form className="shareBottom" onSubmit={submitPostHandler}>
                     <div className="shareOptions">
                         <label htmlFor="file" className="shareOption">
-                            <PermMedia htmlColor="purple" className="shareIcon"/>
+                            <PermMedia sx={{color: "#5c4c7f"}} className="shareIcon"/>
                             <span className="shareOptionText">Photo</span>
                             <input type="file" id="file" accept=".png, .jpeg, .jpg"
                                    onChange={imageChangeHandler}
-                                   style={{display: "none"}}/>
+                                   style={{display: "none"}}
+                            />
                         </label>
                     </div>
-                    <button className="shareButton" type="submit">Share</button>
+                    <button className="shareButton" type="submit" >Share</button>
                 </form>
             </div>
         </div>

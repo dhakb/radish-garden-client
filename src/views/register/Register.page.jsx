@@ -66,7 +66,7 @@ const Register = () => {
                         <input placeholder="Password" className="loginInput" value={password}
                                type="password"
                                onChange={passwordChangeHandler} required/>
-                        <input placeholder="Password Again" className="loginInput" value={confirmPassword}
+                        <input placeholder="Confirm password" className="loginInput" value={confirmPassword}
                                type="password"
                                onChange={confirmPasswordChangeHandler} required/>
                         <button className="loginButton" type="submit" onClick={signupSubmitHandler}>Sign Up</button>

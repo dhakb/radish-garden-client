@@ -46,7 +46,7 @@ const TopBar = () => {
                 <div className="searchBar">
                     <Search className="searchIcon"/>
                     <input type="text" className="searchInput" onChange={(e) => setSearchInput(e.target.value)}
-                           value={searchInput} placeholder="search for users by username..."/>
+                           value={searchInput} placeholder="Search ..."/>
                 </div>
                 {
                  searchInput && <SearchOutputDropdown users={filteredUsers}/>
@@ -56,15 +56,15 @@ const TopBar = () => {
                 <div className="topBarIcons">
                     <div className="topBarIconItem">
                         <Chat onClick={() => navigate("/messenger")}/>
-                        <span className="topBarIconBadge">4</span>
+                        {/*<span className="topBarIconBadge"></span>*/}
                     </div>
                     <div className="topBarIconItem">
                         <Notifications/>
-                        <span className="topBarIconBadge">4</span>
+                        <span className="topBarIconBadge"></span>
                     </div>
                 </div>
                 <div className="profile-info-wrapper">
-                    <div className="profile-info" onClick={() => navigate(`/profile/${user.username}`)}
+                    <div className="profile-info" onClick={(e) => rightClickAvatarHandler(e)}
                          onContextMenu={rightClickAvatarHandler}>
                         <img
                             src={user.profilePicture ? `${API_BASE_URL}/api/upload/${user.profilePicture}` : `${PF}avatar.png`}

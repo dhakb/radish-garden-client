@@ -52,7 +52,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: teal;
+    background-color: #483b68;
     color: white;
 }
 
@@ -63,7 +63,6 @@
 .online-friends-messenger-title {
     margin-left: 10px;
     font-size: 20px;
-
 }
 
 .chatMenuWrapper,

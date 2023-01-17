@@ -1,15 +1,25 @@
 .search-output-container {
     position: absolute;
     width: 40%;
-    height: 80px;
-    background-color: #dcd7d7;
+    max-height: 240px;
+    background-color: rgba(114, 114, 135, 0.65);
     border-radius: 8px;
-    margin-top: 10px;
+    margin-top: 8px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 5px;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
+
+.search-output-container::-webkit-scrollbar {
+    display: none;
+}
+
+
+
 
 .search-user {
     display: flex;
@@ -17,7 +27,7 @@
     align-items: center;
     gap: 15px;
     border-radius: 5px;
-    background-color: #afa39e;
+    background-color: rgba(243, 243, 243, 0.71);
     cursor: pointer;
     padding: 5px;
 }
@@ -38,4 +48,7 @@
 .no-user-searchBar {
     text-align: center;
     margin: auto;
+    color: black;
+    font-weight: bold;    /*width: 100%;*/
+
 }
