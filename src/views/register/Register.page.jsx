@@ -1,9 +1,12 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useState, useContext} from "react";
 import axios from "axios";
 
-import "./Register.styles.css"
+
+import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../../context/auth/Auth.context";
 import {API_BASE_URL} from "../../constants";
+
+import "./Register.styles.css"
 
 const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
@@ -12,6 +15,7 @@ const Register = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const {loginUserAsync} = useContext(AuthContext)
     const navigate = useNavigate()
 
     const userNameChangeHandler = (e) => setUsername(e.target.value)
@@ -29,12 +33,14 @@ const Register = () => {
         } else {
 
             try {
-                await axios.post(`${API_BASE_URL}/api/auth/register`, {
+                const response = await axios.post(`${API_BASE_URL}/api/auth/register`, {
                     username,
                     email,
                     password: confirmPassword,
                 })
-                navigate("/login")
+                if(response.statusText === "OK") {
+                    loginUserAsync(email, password)
+                }
             } catch (err) {
                 console.log(err)
             } finally {

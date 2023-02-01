@@ -34,7 +34,7 @@ function App() {
         <Routes>
             <Route path='/' element={user ? <Home onlineFriends={onlineUsers}/> : <Navigate to="/login"/>}/>
             <Route path="/login" element={!user ? <Login/> : <Navigate to="/"/>}/>
-            <Route path='/signup' element={<Register/>}/>
+            <Route path='/signup' element={!user ?  <Register/> : <Navigate to="/"/>}/>
             <Route path='/profile/:username' element={user && <Profile/>}/>
             <Route path="/messenger" element={!user ? <Navigate to="/"/> : <Messenger onlineFriends={onlineUsers}/>}/>
             <Route path="/settings/*" element={user && <UserSettings/>}/>

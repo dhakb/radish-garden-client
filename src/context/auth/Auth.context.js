@@ -50,7 +50,6 @@ const AuthContextProvider = ({children}) => {
                 email,
                 password,
             })
-            console.log("auth:", response.data)
             loginUserSuccess(response.data)
         } catch (err) {
             console.log(err)
@@ -59,7 +58,6 @@ const AuthContextProvider = ({children}) => {
     }
 
     const updateCurrentUser = (updatedUser) => {
-        console.log("from updater", updatedUser)
         dispatch({type: AUTH_ACTION_TYPES.UPDATE_USER, payload: updatedUser})
     }
 
