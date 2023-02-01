@@ -11,7 +11,7 @@ const Online = ({friend}) => {
 
     useEffect(() => {
         const getUserByUserId = async () => {
-           const response = await axios.get(`${API_BASE_URL}api/users/?userId=${friend}`)
+           const response = await axios.get(`${API_BASE_URL}/api/users/?userId=${friend}`)
             setUser(response.data)
         }
         getUserByUserId()
