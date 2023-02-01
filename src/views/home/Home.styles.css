@@ -1,5 +1,14 @@
+.app-wrapper {
+    /*border: 5px solid black;*/
+    padding: 5px;
+}
+
+
+
+
 .homeContainer {
     display: flex;
     width: 100%;
     gap: 15px;
+    /*border: 5px solid black;*/
 }
